@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "id": "context-memory",
+      "keywords": ["context", "memory", "retrieval", "검색", "기억", "맥락", "인덱스"],
+      "documents": ["docs/context-engineering.md", "docs/architecture.md"],
+      "paths": ["harness/index.py", "harness/context.py", "tests/test_search.py"]
+    },
+    {
+      "id": "task-recovery",
+      "keywords": ["task", "checkpoint", "resume", "handoff", "작업", "재개", "인계", "체크포인트"],
+      "documents": ["docs/task-lifecycle.md", "docs/architecture.md"],
+      "paths": ["harness/tasks.py", "tests/test_tasks.py"]
+    },
+    {
+      "id": "quality-verification",
+      "keywords": ["test", "verify", "gate", "qa", "검증", "테스트", "품질"],
+      "documents": ["docs/verification.md", "docs/security.md"],
+      "paths": ["harness/verification.py", "tests/test_verification.py"]
+    }
+  ]
+}

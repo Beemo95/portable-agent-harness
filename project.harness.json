@@ -1,0 +1,68 @@
+{
+  "environment": {
+    "bootstrap_commands": [],
+    "git_required": true,
+    "optional_tools": [],
+    "python_min": "3.10",
+    "required_tools": []
+  },
+  "project": {
+    "kind": "harness-template",
+    "name": "Portable Agent Harness",
+    "purpose": "Portable, repository-native task/context/verification system that works across agents and machines"
+  },
+  "retrieval": {
+    "default_context_tokens": 1800,
+    "extensions": [
+      ".md",
+      ".py",
+      ".gd",
+      ".ts",
+      ".tsx",
+      ".js",
+      ".json",
+      ".yaml",
+      ".yml",
+      ".toml",
+      ".sh",
+      ".ps1",
+      ".txt"
+    ],
+    "max_file_bytes": 180000,
+    "max_results": 8
+  },
+  "schema_version": 1,
+  "verification": {
+    "gates": [
+      {
+        "argv": [
+          "{python}",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "description": "Portable harness self-tests (replace with project-specific tests in an adopted project)",
+        "id": "unit",
+        "min_tests": 1,
+        "required": true,
+        "timeout_seconds": 120
+      },
+      {
+        "argv": [
+          "{python}",
+          "-m",
+          "compileall",
+          "-q",
+          "harness"
+        ],
+        "description": "Python syntax verification",
+        "id": "compile",
+        "required": true,
+        "timeout_seconds": 60
+      }
+    ]
+  }
+}
