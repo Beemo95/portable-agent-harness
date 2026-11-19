@@ -1,12 +1,19 @@
 schema: spec-driven
 context: |
-  Git-native Godot work uses AGENTS.md, .agent-docs/status.md, actual code/Git,
-  and one canonical OpenSpec implementation checklist per change.
-  Checkpoint significant decisions, implemented slices, failures and session/context changes.
-  Do not duplicate plans in a task database or change acceptance to claim success.
-  This template includes no actual game, so runtime/device tests are NOT RUN.
+  Documentation-first, Git-native game development. Read actual existing code,
+  tests, project version and relevant prior domain knowledge before planning.
+  Investigate factual unknowns; ask the user only for material product choices,
+  conflicting requirements or unsafe blockers. Significant work uses one
+  OpenSpec change with ordered independently testable implementation phases.
+  Each phase has acceptance, relevant source paths, dependencies, regression
+  tests, real runtime/visual/device QA when applicable, and required completion
+  gates. Failed or NOT RUN required gates block phase completion; do not fake PASS.
+  Distill reusable verified knowledge into one canonical spec, architecture, ADR
+  or research document. .agent-docs/topics.md stores pointers, not duplicated facts.
+  STATUS describes current work only; older knowledge remains searchable.
+  This repository is a template without a running Godot game.
 rules:
   proposal:
-    - State observable acceptance criteria, risks and compatibility.
+    - Include current code baseline, accepted behavior, decision questions and risks.
   tasks:
-    - Include relevant verification and a factual next-session handoff.
+    - Organize significant changes into testable phases with required gates and next action.

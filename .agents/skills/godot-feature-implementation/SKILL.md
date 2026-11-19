@@ -1,15 +1,14 @@
 ---
 name: godot-feature-implementation
-description: Implement or refactor Godot 4 GDScript, scenes and resources under an approved game change. Use for player movement, controls, gameplay systems, signals, UI and serialization.
+description: Implement Godot 4 scenes, signals and GDScript in testable phases, reusing the project's previously verified contracts.
 ---
-
 # Implement Godot feature
 
-1. Read `.agent-docs/rules/development.md`, active OpenSpec change and only affected scenes/scripts. Confirm engine version and actual scene tree.
-2. Plan a small slice, file ownership and regression checks; preserve scene UIDs/resource references and data migration constraints.
-3. Modify code/assets to match accepted behavior. Prefer type-safe GDScript, local signals and stable node ownership; no unnecessary autoload.
-4. Validate syntax/import with the **installed** editor (`godot --headless --editor --path <project> --quit`) when available. Add focused tests and visual/device inspection for relevant behaviors.
-5. Report exact changed files, command/log/evidence, untested cases and next action; update STATUS and architecture if boundaries changed.
-6. When uncertain about Godot API semantics, read `.agent-docs/rules/research.md` and the version-matched official docs; don't guess.
+1. Inspect real `project.godot`, engine/version, relevant scenes/scripts and signal/autoload ownership, tests, Git and prior architecture decisions. For recurring topics follow [topic index](../../../.agent-docs/topics.md) and verify conventions against current code.
+2. Identify exact approved behavior, current OpenSpec phase, file boundaries, scene UIDs/resource references, migration constraints, baseline tests and regression risks. Resolve material ambiguity before editing; choose reversible assumptions for minor details.
+3. Implement a **small planned vertical slice**, adding/updating suitable automated gameplay/unit/integration tests for new behavior and regressions. Preserve existing accepted tests and save contracts.
+4. Run installed-engine parse/import (e.g. `godot --headless --editor --path <project> --quit`) and relevant tests. Check GUI/visual/device behavior where acceptance requires it; a headless PASS is not a visual PASS.
+5. **Phase gate:** if a required check fails or is unrun, fix/retest or record blocked and request a necessary user decision. Do not mark the phase fully accepted or advance on an assumed PASS.
+6. Record actual commands/results, relevant file paths, revision, NOT RUN gaps, blockers and next slice; update canonical OpenSpec/STATUS. Distill reusable architecture/logic decisions into their established owner and [topic pointers](../../../.agent-docs/topics.md).
 
-For scene considerations, load [scene-checklist](references/scene-checklist.md) only when applicable.
+Use [development rule](../../../.agent-docs/rules/development.md), [verification rule](../../../.agent-docs/rules/verification.md) and [scene checklist](references/scene-checklist.md) selectively.

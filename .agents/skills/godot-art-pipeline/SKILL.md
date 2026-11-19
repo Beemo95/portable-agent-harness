@@ -1,14 +1,14 @@
 ---
 name: godot-art-pipeline
-description: Plan, produce or integrate Godot game art, pixel sprites, directional animation, isometric tilemaps, UI or VFX. Use when art sources, import settings or visible previews matter.
+description: Implement or integrate Godot pixel/isometric art, directional animation, tilemaps and UI with real previews and reusable decisions.
 ---
-
 # Godot art pipeline
 
-1. Read `.agent-docs/rules/design-art.md` and relevant existing art/reference scenes. Identify expected output format (GDScript-generated/vector/image); don't substitute one for another.
-2. Document actual target size, frames/directions, camera/projection, palette and pivots from approved spec, not guesses.
-3. Build/edit reusable source assets or code, keep provenance and import settings, then integrate into a real Godot scene when asked.
-4. Test filtering/pixel snap, direction ordering, collisions, depth ordering, screen sizes and animation loops as appropriate.
-5. Deliver editable files, exact scene paths, actual rendered preview where available and a clear NOT RUN note when Godot was unavailable.
+1. Inspect existing art/scene code, assets, import settings and [prior topic knowledge](../../../.agent-docs/topics.md) before generating a new design. Verify past facts against current source.
+2. Read [art/design rule](../../../.agent-docs/rules/design-art.md). Determine **requested output format** from user intent (GDScript/code, editable vector, image/sprites) and never swap media silently.
+3. Record existing or approved direction count, camera/isometric projection, pixel density, dimensions, palette, pivots, frame count and FPS; do not guess from unavailable assets.
+4. For significant work, plan testable phases with required visual/runtime evidence. Integrate and check moving-character z-order, animation transitions, pixel snapping, import and collisions as relevant.
+5. Do not mark a phase visually verified without actually running/inspecting the scene. Report NOT RUN if unavailable; capture actual editable resources and screenshot/video/GIF where possible.
+6. After confirmed progress, distill reusable coordinate/animation/depth rules or proven failure causes into canonical architecture/ADR/research with code/test links; add topic pointers for future related work.
 
-For pixel/isometric work, load [pixel-isometric checklist](references/pixel-isometric-checklist.md) only when relevant.
+Only read [pixel/isometric checklist](references/pixel-isometric-checklist.md) when relevant.

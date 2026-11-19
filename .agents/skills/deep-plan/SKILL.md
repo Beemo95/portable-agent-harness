@@ -1,11 +1,12 @@
 ---
 name: deep-plan
-description: Plan risky changes in small verifiable slices without a duplicate task contract.
+description: Investigate an unfamiliar or risky codebase change, resolve necessary user decisions, and create testable sequential implementation phases.
 ---
-# Deep plan
-1. Inspect source, tests, approved specs, ADRs and the active OpenSpec change.
-2. Classify checkable facts, hypotheses and user product decisions; request approval when necessary.
-3. Specify observable acceptance, failures, non-goals and important compatibility constraints.
-4. Compare alternatives only as needed, then split into verifiable slices with ownership and rollback.
-5. Record proposal/design/tasks in **one** OpenSpec change. Do not duplicate them in a task database.
-6. Keep STATUS short with current slice, blockers and next action; never rewrite acceptance because tests failed.
+# Deep plan — substantial work only
+
+1. **Inspect source first:** actual code/architecture, tests, prior related topic knowledge, Git changes and approved OpenSpec specs. Trace call/scene interfaces and existing reusable patterns; don't design from a summary alone.
+2. Classify unknowns into directly checkable, reversible low-risk assumption, required user decision and risky blocker. Investigate checkable facts before asking; ask **focused** product/irreversible questions only. State assumptions; don't repeatedly ask already-settled questions.
+3. Define user-visible acceptance, failure/edge cases, non-goals, compatibility constraints, baseline tests and real project QA needs. No fabricated result or guessed Godot API.
+4. Plan **ordered, independently testable phases** in one OpenSpec proposal/design/`tasks.md`: phase goal, source boundaries, implementation slice, automated tests, runtime/visual/device verification, dependencies, pass/fail gate, rollback and approvals where applicable.
+5. Do not begin a materially ambiguous or destructive phase until its required user decision is resolved. Routine reversible edits do **not** need ceremonial approval.
+6. Present the phase overview and first actionable slice. Record dependencies and actual progress in canonical OpenSpec/STATUS rather than a duplicate task database. On completion distill durable knowledge per [documentation rule](../../../.agent-docs/rules/documentation.md).

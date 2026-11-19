@@ -1,13 +1,13 @@
 # Game art, UI, animation and asset pipeline
 
-Read when producing or integrating sprites, tilesets, isometric scenes, particles, UI or animation. Read project art direction and reference assets before producing new work.
+Use for sprites, tilesets, isometric scenes, particles, UI and animation. **Before making new assets or code**, inspect the project's actual scenes/scripts/import settings and prior art direction. If revisiting a domain, check [topic pointers](../topics.md), ADRs, source and previous experiments; verify old guidance against current implementation.
 
-1. Record target resolution, pixel density, style, palette, camera angle, coordinate system, direction set (4/8), FPS, frame count and export requirements **only as specified or observed**; don't guess.
-2. Decide the implementation format from the requested outcome: code-driven geometry/GDScript, reusable vector resources, or image sprites. Do **not** silently replace a requested code-based asset with an image or vice versa.
-3. Preserve source files and editability (e.g., scripts/shaders/source sprite sheets). Track license, origin and exact import settings for third-party assets. Never treat an unverified free download as unrestricted.
-4. For pixel art: test pixel snapping, filtering, scaling and sprite boundaries; check frame size, pivots, loop seams, direction ordering and background transparency.
-5. For isometric scenes: document tile footprint, world-to-screen projection, z-order/occlusion and collision assumptions. Verify depth ordering with moving characters rather than a static screenshot.
-6. For UI: check multiple aspect ratios, touch hit areas, text legibility and localization overflow if applicable.
-7. Deliver preview evidence: actual Godot scene screenshot/video/GIF where possible, plus project paths. If not run, explicitly mark "not visually verified" and explain how to inspect.
+1. Record observed/approved resolution, pixel density, style/palette, camera angle, coordinate model, direction set (4/8), FPS, frame count, pivots and output format; **do not invent** unspecified values.
+2. Honor explicitly requested implementation medium (code-driven/GDScript, vector, spritesheet/image). Never substitute an image for requested code or vice versa.
+3. For substantial changes, plan small phases (e.g. movement baseline, animation, occlusion, interaction, integrated QA) with exact acceptance and **per-phase test/preview evidence**. Do not mark a phase complete when its required visual/runtime check is unrun.
+4. Keep reusable editable assets/code, provenance, licensing constraints and import settings. Preserve previous scene/depth/coordinate conventions unless an approved design change supersedes them.
+5. For isometric work, verify world-to-screen mapping, tile footprint, z-order/occlusion and collision with **moving** characters. For pixel art, inspect pixel snap, filtering, scaling, direction order, frame pivots and loop seams.
+6. For UI, test representative device sizes/aspect ratios, touch areas, legibility and localization overflow where applicable. Deliver an **actual** Godot screenshot/video/GIF if produced; otherwise mark NOT RUN.
+7. After validated changes, **distill reusable conventions and rejected approaches** into the existing architecture/ADR/research owner with code/test evidence, and index recurring topics via [topic map](../topics.md). Do not copy entire task logs into permanent rules.
 
-Update a durable art/design decision only when it affects future consistency; avoid copying per-frame observations into long-lived rules.
+A static preview or headless parse does not prove visual layering or Android/device behavior.

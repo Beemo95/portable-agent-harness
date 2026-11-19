@@ -1,14 +1,18 @@
-# Quickstart — no Python harness
+# Quickstart — code first, minimal setup
 
-**Core requirements:** Git and an agent with access to this repository's files. An actual Godot game must also have its own Godot installation, dependencies and test commands. OpenSpec's CLI is optional.
+Use Git and an agent with file access. This is a **template**; the actual Godot version, code and runtime/tests come from the real game repository. Python/SQLite are **not** required.
 
-1. Clone/pull the actual project (`main` or the intended active branch), open it in Codex/Hermes/Grok or another code-capable agent.
-2. Ask: “Read AGENTS.md. What work is active, what is implemented, what has actually been tested and what is the next action?”
-3. The agent reads STATUS, active OpenSpec change/handoff and Git/source. If STATUS says `none`, it reports that and does not invent a feature.
-4. Continue the first unfinished task using native file search and the original spec. Test with real game tooling.
-5. At an important milestone or before a deliberate context switch, record compact facts, known failures, next action and transfer state. Commit/push non-secret changes as authorized.
+## New feature request
+1. Ask “implement this feature.” Agent reads [AGENTS.md](../AGENTS.md), inspects relevant code/scenes, tests, Git and previous topic-specific decisions. It should **not** immediately ask generic questions already answered by the project.
+2. Agent shares grounded understanding, clarifies only unresolved material user/product decisions, and proposes phase-by-phase acceptance/tests/rollback for nontrivial work.
+3. After required decisions, the agent implements each phase **with tests**, runs actual required QA, fixes failures or reports a blocker; it does not mark an unverified phase complete.
+4. At meaningful boundaries, OpenSpec/STATUS capture current work and [reusable knowledge](knowledge-reuse.md) is distilled into one canonical document and an optional topic pointer.
 
-Read-only Git inspection:
+## Resume or revisit an old subject
+- **Resume:** STATUS → active OpenSpec tasks → Git/code → next unfinished verified phase.
+- **Revisit:** relevant code/tests → [topic map](../.agent-docs/topics.md) and old ADR/research/specs/history → verify relevance → extend existing design.
+
+Read-only inspection examples:
 
 ```sh
 git status --short
@@ -16,13 +20,11 @@ git log -5 --oneline
 git diff
 ```
 
-Optional documentation-only integrity checks:
+Optional documentation-only checks:
 
 ```sh
 bash scripts/check-docs.sh
 bash tests/docs-lint.sh
 ```
 
-These are Bash checks **inside the template**, not required to run the harness in every adopted project. A missing test runner, stale Markdown or unpushed work must be reported rather than assumed good.
-
-[Adoption](adopting-existing-project.md) · [Official OpenSpec optional setup](openspec-workflow.md) · [Recovery evaluation](evaluation.md).
+[Safe adoption](adopting-existing-project.md) · [Phases](task-lifecycle.md) · [Official OpenSpec](openspec-workflow.md) · [QA](verification.md). No missing tool result may be reported as PASS.

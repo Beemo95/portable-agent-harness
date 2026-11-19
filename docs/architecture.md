@@ -1,19 +1,23 @@
-# Git-native documentation harness
+# Architecture — Git-native, code-first workflow
 
 ```text
-New agent -> AGENTS.md -> short STATUS -> exact active OpenSpec change
-                                      \-> relevant rules/Skills/ADRs/handoff
-                                      \-> actual Git/source and QA evidence
-                 execute project tests -> checkpoint Markdown + commit/push
-                                      -> next session/model/PC
+New feature: current code/tests/Git → prior topic knowledge → focused user decisions
+            → one OpenSpec phased plan → implement + tests → gate → next phase
+                                       ↘ durable canonical knowledge + topic pointer
+
+Resume: STATUS → current OpenSpec phase/handoff → reconcile Git/source/QA
+
+Later related feature: current code → topic map → ADR/architecture/spec/research
+                     → revalidate with tests → reuse or update implementation
 ```
 
-- **Code, Git and observed runtime** define what currently exists; spec/accepted decisions define intended behavior.
-- **OpenSpec changes** own one implementation checklist (`tasks.md`); approved specs live in `openspec/specs/`. The official CLI/Skills are optional and not bundled.
-- **STATUS** is a one-screen pointer to active work, tested/untested facts, blockers and next action, not the source of task history.
-- **ADRs, research, worklogs and targeted handoffs** preserve durable rationale, with meaningful milestone checkpoints.
-- **Bash CI** checks required docs, common local Markdown links and STATUS→change paths; it cannot test games or semantic truth.
+- **Code + Git + observed runtime** show current actual behavior; approved specs and decisions define intent.
+- **OpenSpec** owns the one implementation checklist, ordered phases and accepted outcomes.
+- **STATUS** points only to active work; it is **not** all historical memory.
+- **Topic map** is a compact navigation layer for recurring subjects; facts remain in a single canonical spec, architecture, ADR or verified research document.
+- **Worklogs and short handoffs** preserve useful one-time evidence. Only reusable findings are distilled; never copy whole conversations.
+- **Bash documentation CI** checks files, common relative Markdown links and active change targets; it does not test game runtime or model adherence.
 
-No Python/SQLite/task DB/context-packet engine. **`scripts/` and `tests/` are explicitly allowed** because real games need them. Git clones transfer only pushed non-secret state; actual cross-agent continuity remains to be tested.
+No Python runtime, SQLite DB, always-on memory service, homemade context-packet generator, or duplicate task state. Git cannot recover hidden model thought, ignored files or unpushed work.
 
-[Official OpenSpec workflows](openspec-workflow.md) · [evaluation](evaluation.md).
+[Detailed development lifecycle](task-lifecycle.md) · [Knowledge policy](knowledge-reuse.md) · [Real-world evaluation](evaluation.md).

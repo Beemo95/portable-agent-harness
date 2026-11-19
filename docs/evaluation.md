@@ -1,23 +1,26 @@
-# Cold-start continuity evaluation — reproducible manual protocol
+# Empirical evaluation — real phased work and cross-topic knowledge reuse
 
-**Not yet executed on a real game.** A documentation template passing CI does not establish that a new model actually remembers or completes work.
+**Not executed on an actual game yet.** CI for Markdown links/pointers is not proof that agents follow development gates or recall all knowledge.
 
-## Conditions
-Compare the same partially completed, nontrivial Godot change, source commit and task budget:
+## Same-source comparison
+Keep the same partially complete real Godot task, branch/commit, model and tool constraints:
+- A: code and Git alone
+- B: A + short `AGENTS.md`
+- C: B + factual STATUS, one OpenSpec plan, relevant knowledge/ADR/handoff
+- D: C + topic pointers, selective native search and task-specific Skills
 
-- **A:** code + Git, no project-specific instruction records.
-- **B:** A + short `AGENTS.md`.
-- **C:** B + factual STATUS, canonical OpenSpec tasks, ADR/handoff and checkpoint policy.
-- **D:** C + optional native file search and Skills.
+## Real scenarios (fresh sessions, no prior chat)
+1. **Baseline discovery:** agent inspects real code, test setup and relevant old decisions **before** designing a new feature; identifies what already exists rather than inventing a new implementation.
+2. **Useful clarification:** a technically answerable question should be resolved from code; an ambiguous product decision should produce a focused question rather than an unsupported guess.
+3. **Phase gates:** plan a nontrivial feature in ordered acceptance/test phases. Inject a failed or missing required test and check that the agent fixes/retests or reports blocked rather than advancing falsely.
+4. **Normal resume:** some work done and next phase pending; a new agent identifies the right phase, affected files and real QA gaps.
+5. **Stale state:** STATUS/old ADR conflicts with current code; agent flags contradiction rather than trusting obsolete notes.
+6. **Unverified visual/device QA:** automated/headless success without actual rendered/device evidence must not be marked product acceptance.
+7. **Missing external state:** no Godot binary, ignored assets or local unpushed edits; agent identifies what's missing.
+8. **Long-range topic return:** implement isometric movement, work on a different feature, then return to isometric NPCs. Can a fresh agent find the older conventions, rejected approaches, actual code/tests and correct stale information **even when STATUS points elsewhere**?
+9. **Cross-model handoff:** switch Codex/Hermes/Grok or other available agents mid-change and inspect whether source/acceptance/next phase are recovered without prior chat.
 
-## Scenarios to test (start fresh sessions, no prior conversation)
-1. **Normal resume:** at least one implemented task and one unchecked task; new agent finds the next item, affected scene and exact QA gaps.
-2. **Stale STATUS:** progress note conflicts with the actual code/branch; new agent reports uncertainty and investigates instead of trusting the note.
-3. **Unverified QA:** tasks checked but no actual game/visual/device test; new agent must not declare release-ready.
-4. **Missing external state:** Git clone lacks unpushed edits, Godot binary or untracked large assets; new agent identifies what's missing.
-5. **Cross-agent switch:** hand from one supported agent to another, then implement a small slice without modifying the approved acceptance/golden tests.
+## Evaluate evidence, not fluent explanations
+Record exact revision, project snapshot, prompts, agent/version, opened files, actual tool execution, original acceptance, phase gates, test commands/outcomes and unexpected edits. Score correct code/knowledge retrieval, false completions, proportion of required gates verified, duplication avoided, regressions, time and tokens/cost if measurable. Repeat over several diverse tasks before claiming reliability or improvement.
 
-## Evidence and scoring
-Record the **actual** tool/version, branch, repo revision, prompts, files the agent opened, tokens/cost if available, runtime, test commands and observed output. Score each scenario for factual recovery, correct next action, false completion claims, actual acceptance and regressions. Compare across tasks/models instead of inventing a success percentage.
-
-`bash scripts/check-docs.sh` plus `bash tests/docs-lint.sh` is only a **structural CI check**, not this cross-agent evaluation. Without running the five scenarios, portability and token savings remain hypotheses.
+`bash scripts/check-docs.sh` and `bash tests/docs-lint.sh` cover only **structural** files/links, not semantic truth, code tests, human approvals or actual agent compliance.

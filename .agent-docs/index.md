@@ -1,18 +1,26 @@
-# Godot project knowledge map (load selectively)
+# Godot project knowledge map — selective lookup
 
-Start at [AGENTS.md](../AGENTS.md). For a resume request read [STATUS](status.md) and its **actual** active OpenSpec change first, then Git/source. Don't preload this entire index.
+Start from [AGENTS.md](../AGENTS.md). For a **resume** request read [STATUS](status.md) and its exact current change. For a **new or recurring topic** inspect code first, then use [topic pointers](topics.md) to find reusable decisions/lessons even after the older change is complete. Do not preload everything.
 
-| Work | Rule |
+| Task | Rule |
 | --- | --- |
-| Every task | [workflow](rules/workflow.md) |
-| Feature/game mechanic | [specification](rules/specification.md) |
-| Godot source/scenes | [development](rules/development.md) |
-| Art/sprites/UI | [design-art](rules/design-art.md) |
+| Every task: code-first, clarification, ordered phase gates | [workflow](rules/workflow.md) |
+| Feature requirements and plans | [specification](rules/specification.md) |
+| GDScript/scenes | [development](rules/development.md) |
+| Art/isometric/UI | [design-art](rules/design-art.md) |
 | Research/OSS | [research](rules/research.md) |
-| Debugging | [debugging](rules/debugging.md) |
-| QA/real game | [verification](rules/verification.md) |
-| Checkpoints and handoff | [documentation](rules/documentation.md) |
+| Bug/performance | [debugging](rules/debugging.md) |
+| Actual QA/verification | [verification](rules/verification.md) |
+| Distillation and checkpoints | [documentation](rules/documentation.md) |
 
-[Project status](status.md) · [product](product.md) · [architecture](architecture.md) · [decisions](decisions/) · [research](research/) · [worklog](worklog/) · [handoff template](templates/handoff.md) · [OpenSpec changes](../openspec/changes/) / [approved specs](../openspec/specs/) · [optional specialists](agents/index.md) · [optional Skills](../.agents/skills/).
+- [STATUS](status.md): current task and immediate next step, **not all history**
+- [Topic map](topics.md): **pointers only** for recurring, previously verified knowledge
+- [Product](product.md) / [architecture](architecture.md): accepted intent / observed current technical boundaries
+- [ADRs](decisions/) / [research](research/) / [worklogs](worklog/): rationale, sourced findings, history
+- [Handoff template](templates/handoff.md): larger changes and session switches
+- [OpenSpec changes](../openspec/changes/) / [specs](../openspec/specs/): single requirements/phase checklist authority
+- [Skills](../.agents/skills/) / [specialists](agents/index.md): optional workflows, load only as useful
 
-[Official OpenSpec workflow](../docs/openspec-workflow.md) · [recovery evaluation](../docs/evaluation.md). If claimed completion conflicts with source or logs, report the discrepancy rather than silently rewriting history.
+[Code-to-code knowledge reuse](../docs/knowledge-reuse.md) · [phase lifecycle](../docs/task-lifecycle.md) · [OpenSpec authoring](../docs/openspec-workflow.md) · [recovery evaluation](../docs/evaluation.md).
+
+When prose and code disagree, investigate. Do not silently promote an old record to current truth.

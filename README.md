@@ -1,38 +1,36 @@
-# Portable Agent Harness — documentation-first, Godot-oriented
+# Portable Agent Harness — code-first, Git-native, Godot-oriented
 
-A small **Git-native Markdown profile** so a new AI agent can ask “what was done, what is left, what was tested?” and navigate the same code, specs and decisions without a custom Python agent server, SQLite database or generated Context Packets.
+A small **Markdown + Git + OpenSpec** profile for AI-assisted development. When asked to build a feature, the agent should investigate existing code and prior decisions, ask only truly unresolved user questions, plan testable phases, implement and verify them in order, then preserve reusable discoveries for future separate tasks. No mandatory Python/SQLite, task database, MCP server or context-packet engine.
 
-> **Template, not a game.** The included STATUS says no game project or tests were inspected. It must be populated from an **actual** Godot repository before claiming any real-game continuity.
+> **This repository is a template, not a playable game.** It contains no inspected Godot game code. Use [safe adoption](docs/adopting-existing-project.md) to merge these rules into a real project.
 
-## How a new session recovers context
-1. [AGENTS.md](AGENTS.md) routes into the short [STATUS](.agent-docs/status.md).
-2. The agent follows the **active OpenSpec change**, related handoff/ADRs, then checks real Git/source, tests and affected scenes.
-3. The next unfinished work slice is found in the **one canonical `tasks.md`**; only relevant [rules](.agent-docs/index.md) and [Skills](.agents/skills/) are opened.
-4. Decisions, implemented slices, failures and impending context switches trigger a short STATUS update; non-secret source/context is committed and pushed for cross-PC handoff.
+## Two complementary workflows
 
-| Concern | Home |
+**Development:** code + existing tests + relevant knowledge → clarify blocking choices → OpenSpec proposal/design + phased `tasks.md` → one implementation slice + automated tests → real verification gate → next phase (or block) → durable distillation.
+
+**Months-later reuse:** new isometric feature → inspect current scene/code → look up [topic pointers](.agent-docs/topics.md), ADRs, archived changes and actual tests → reconcile old conventions → reuse proven work without rediscovering it.
+
+| Kind of record | Canonical owner |
 | --- | --- |
-| Entry / task-specific instructions | `AGENTS.md`, `.agent-docs/rules/` |
-| Snapshot and next action | `.agent-docs/status.md` |
-| Requirements, feature proposal/design/tasks | `openspec/specs/`, `openspec/changes/` |
-| Architectural decisions / research / handoff | `.agent-docs/decisions/`, `research/`, `worklog/` |
-| Verification | Actual Godot/project test commands and observed evidence |
-| Optional roles and workflows | `.agent-docs/agents/`, `.agents/skills/` |
+| Short agent instructions and routing | [AGENTS.md](AGENTS.md) |
+| Current work, verified/untested, next action | [STATUS](.agent-docs/status.md) |
+| Product/feature acceptance and phases | `openspec/specs/` and `openspec/changes/` |
+| Reusable domain discovery | [Topic map](.agent-docs/topics.md), **pointers only** |
+| Verified architecture / why decisions were made | [Architecture](.agent-docs/architecture.md) / [ADRs](.agent-docs/decisions/) |
+| Durable external research / meaningful handoff | [Research](.agent-docs/research/) / [worklogs](.agent-docs/worklog/) |
+| Code, regression and real QA evidence | Actual source/test files, command results, device/runtime artifacts |
 
-## Documentation safety checks (Bash, not a Python harness)
+## Key documents
+[Phase lifecycle](docs/task-lifecycle.md) · [Knowledge distillation/retrieval](docs/knowledge-reuse.md) · [Selective context](docs/context-engineering.md) · [Official OpenSpec workflow](docs/openspec-workflow.md) · [Godot adoption](docs/godot-profile.md) · [Agent compatibility limits](docs/agent-adapters.md) · [Evaluation](docs/evaluation.md)
+
+## Documentation-only checks
 ```sh
 bash scripts/check-docs.sh
 bash tests/docs-lint.sh
 ```
 
-GitHub Actions runs these to catch missing required docs, common broken relative Markdown links, and a STATUS pointer to a missing OpenSpec change. **`scripts/` and `tests/` are allowed**, including real game scripts/tests. These checks do **not** validate semantic accuracy or run the game.
+GitHub Actions runs structural Markdown/STATUS checks; scripts/tests are allowed for real projects. **These checks do not run Godot, enforce model behavior or demonstrate cross-model recall.** You must use actual game tests and the [evaluation scenarios](docs/evaluation.md) to measure the above workflows.
 
-## Adoption & optional upstream workflow
-- [Quickstart](docs/quickstart.md) and [safe adoption into a real game](docs/adopting-existing-project.md)
-- [Official OpenSpec workflows/setup](docs/openspec-workflow.md) — separately installed only if wanted; do not copy or reimplement its generated Skills
-- [Agent adapter limits](docs/agent-adapters.md) and [Godot profile](docs/godot-profile.md)
-- [Recovery evaluation](docs/evaluation.md), [verification boundaries](docs/verification.md) and [research background](docs/research-basis.md)
+OpenSpec's official CLI/Skills are optional upstream authoring tools; Markdown remains readable without installation. Agents must check real code and tests rather than treating old text or success reports as proof. Git only transfers committed/pushed non-secret state. Older branches may contain the deprecated Python design; inspect before reusing.
 
-The `main` branch contains the latest docs. Older feature branches may still contain the obsolete Python architecture; don't treat them as current without reviewing differences. Git cannot transfer uncommitted edits, secrets, ignored assets or hidden model state. Actual Codex/Hermes/Grok end-to-end cold-start tests remain to be run on a real game.
-
-MIT: [LICENSE](LICENSE).
+MIT license: [LICENSE](LICENSE).
