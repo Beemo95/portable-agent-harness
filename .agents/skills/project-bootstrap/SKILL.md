@@ -1,12 +1,12 @@
 ---
 name: project-bootstrap
-description: Inspect and adopt a repository safely without installing an extra harness runtime.
+description: Initialize a real project's status from inspected code, tools and history without an extra harness runtime.
 ---
-# Cold entry / adoption
-1. Read AGENTS, STATUS and knowledge map; inspect real project root and Git status.
-2. Identify actual source, test commands, Godot version, existing specs/docs and external access gaps.
-3. Merge useful template Markdown/Skills into existing instructions **without overwriting** accepted project state.
-4. Run available baseline checks; distinguish PASS/FAIL/NOT RUN and record observed facts in product/architecture/STATUS.
-5. Report blockers and next step, commit/push non-secret context for another machine.
+# First entry or adoption
 
-No Python doctor, installer, SQLite cache or extra task database.
+1. Read AGENTS, STATUS, project files, Git branch and recent commits. Do not assume this template contains a game.
+2. Inspect real `project.godot`, engine/version/platform, scenes, existing tests and external tool/asset blockers.
+3. Merge documentation and Skills without overwriting existing product decisions, scripts or tests.
+4. Replace TEMPLATE STATE with observed facts and links to actual OpenSpec change(s); include date, verifiable evidence and next action.
+5. Run `bash scripts/check-docs.sh` if present, and real project baseline checks separately; record NOT RUN honestly.
+6. Commit/push non-secret state as authorized, then test fresh-session recovery.

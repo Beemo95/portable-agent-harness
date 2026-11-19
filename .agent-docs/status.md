@@ -1,16 +1,17 @@
-# Current game project status
+# Current project status
 
-> TEMPLATE STATE — No Godot game is included in this harness repository. When installing into a real project, replace this with observed details.
+> TEMPLATE STATE — no actual Godot game is included. Replace template facts only after inspecting an adopted game repository.
 
-- **Project:** not configured
-- **Godot version / renderer:** not inspected
-- **Target platform(s):** not decided
-- **Active OpenSpec change(s):** none
-- **Current goal:** select a real project and approved feature to work on
-- **What is implemented:** not evaluated
-- **What was tested:** no game checks performed
-- **Blockers / unknowns:** actual project path, Godot binary/version and acceptance criteria
-- **Next action:** inspect `project.godot`, `.agent-docs/product.md` and relevant source; link/create OpenSpec change for first substantial task
-- **Last updated:** not yet initialized for a game
+- **Project:** not configured; documentation template only
+- **Godot version / renderer / platforms:** not inspected; no game included
+- **Active OpenSpec changes:** none
+- **Current goal:** connect this documentation profile to a real project
+- **Implemented:** no game code inspected
+- **Remaining:** identify actual game, current branch and active work
+- **Verification:** NOT RUN — no game engine, scene or device tests performed
+- **Blockers:** actual game repository, tools and approved task not linked here
+- **Next action:** inspect the actual game's project.godot, code, recent Git changes and pending requirements; replace this template STATUS and link the real change
+- **Last inspected revision:** not inspected for a game
+- **Last updated:** not initialized for a game
 
-Maintain a small factual snapshot; keep history in worklogs, design decisions and Git rather than copying it all here.
+For real work use exact `openspec/changes/<slug>/` paths under Active OpenSpec changes (or `none`). STATUS is a small index, not a second task checklist. Verify against actual Git/source before trusting it.

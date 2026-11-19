@@ -1,12 +1,11 @@
 ---
 name: game-work-handoff
-description: Create a concise, truthful handoff of Godot game work, decisions, tested state and next steps. Use when pausing, switching models/PCs or ending a task.
+description: Hand off a Godot scene/asset/game feature with accurate visual/device QA and next-step context.
 ---
+# Godot-specific handoff
 
-# Preserve project work
-
-1. Read `.agent-docs/rules/documentation.md`, the linked OpenSpec change, current project STATUS and actual Git diff.
-2. Reconcile completed/unfinished work; update OpenSpec checkboxes only for implemented items. Separate tested, visually reviewed and device-verified claims.
-3. Record only meaningful new decisions or research. Update `.agent-docs/status.md` with blockers and one concrete next step.
-4. Use `.agent-docs/templates/handoff.md` for substantial handoff; include files, exact commands/evidence, known risks, branch and actual commit/push status.
-5. Never promise that local uncommitted work, ignored assets, secrets or external services will travel with a Git clone.
+1. Read the [documentation rule](../../../.agent-docs/rules/documentation.md), STATUS, active OpenSpec change, actual scene/code and Git diff.
+2. Reconcile implemented and unfinished work, scene/asset changes and actual game QA. Headless checks never prove animations or devices work.
+3. Update **one** OpenSpec checklist and STATUS after meaningful decisions, completed slices or failures. For complex work use [handoff template](../../../.agent-docs/templates/handoff.md).
+4. Record exact revision, modified files, commands/evidence, unverified visual/device cases, blockers, next action and whether work is pushed.
+5. Commit/push non-secret artifacts when authorized. Use `context-recovery` when *starting* a new session and `verify-and-handoff` for independent QA.

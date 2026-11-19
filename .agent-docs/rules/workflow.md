@@ -1,19 +1,18 @@
-# Workflow — every task
+# Workflow — every project task
 
-## Start
-1. Identify the request. If resuming, inspect `.agent-docs/status.md`, its linked OpenSpec change/handoff, `git status`, recent Git commits, actual source and verification evidence. If status is stale, report the discrepancy.
-2. Read matching rules/Skills only as needed; inspect real `project.godot`/scenes/version in an adopted game. This template has no playable project.
-3. For substantial features, confirm approved acceptance and use a **single** OpenSpec change. Tiny changes need no invented task contracts.
+## Start / resume
+1. For “where did we stop?”, read STATUS, its active OpenSpec change and handoff, then inspect `git status`, recent commits, actual code and recorded test evidence. Report stale/missing pointers instead of guessing.
+2. Load task-specific rules/Skills from `AGENTS.md` only when relevant; never preload all documentation.
+3. Inspect the real project's `project.godot`, engine version and relevant scenes/tests. This template is not a game.
+4. Use **one** OpenSpec change for substantial work; tiny fixes need no fabricated contract.
 
-## Work
-- Make small changes and run relevant real tool/tests; report skipped or unavailable visual/device QA.
-- Do not change approved goals or golden test expectations to conceal a failure.
-- Store meaningful decisions, research and failures in canonical docs, not duplicated checklists.
-- Avoid concurrent overlapping edits; isolate using branches/worktrees when appropriate.
+## Work / verify
+- Work in reviewable slices; preserve approved acceptance and existing tests. Avoid overlapping agent edits without separate branches/worktrees.
+- Run actual project checks; record PASS / FAIL / NOT RUN and distinguish headless parsing from visual or device QA.
+- **Checkpoint meaningfully** after decisions, finished slices, important failures, and before deliberate context compression, session switch or risky operation. Update the existing OpenSpec checklist and small STATUS, not a duplicate state store. See [documentation](documentation.md).
 
-## Finish or pause
-- Check only implemented items in OpenSpec `tasks.md`. A checked box is not independent QA.
-- Update STATUS with active change, verified/unverified facts, blockers, next concrete action and source/evidence links.
-- Add a [handoff](../templates/handoff.md) if needed. Commit/push relevant non-secret work for a new PC; no uncommitted/ignored state will transfer.
-
-Implementation, automated tests, visual/device verification and release are separate states.
+## Finish / pause
+- Check off only implemented OpenSpec tasks; record revision, evidence, remaining work, blockers and the next smallest action.
+- Use the [handoff template](../templates/handoff.md) for complex work.
+- Run `bash scripts/check-docs.sh` when present (documentation integrity only, not game QA).
+- Commit/push non-secret work when authorized for handoff. Another session must reconcile source and tests rather than trusting old summaries.

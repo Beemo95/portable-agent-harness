@@ -1,17 +1,21 @@
-# Documentation maintenance and handoff
+# Documentation maintenance and checkpoint policy
 
-## Write during meaningful work
-- OpenSpec owns **what and why to build**: `openspec/specs/` (approved capability) and `openspec/changes/<id>/` (proposal/design/tasks).
-- `.agent-docs/product.md` owns approved game vision. `.agent-docs/architecture.md` owns verified current technical boundaries. Keep them concise; edit only when their truths change.
-- `.agent-docs/decisions/` records durable trade-offs/approval, including rejected alternatives and supersession.
-- `.agent-docs/research/` records dated external evidence; `.agent-docs/worklog/` records meaningful iteration outcomes/problems, **not every tool call**.
-- `.agent-docs/status.md` links active changes, last verified facts, blockers and next action. It is a lightweight index, not another source for detailed specs.
+## One authority per fact
+- OpenSpec `specs/` owns approved requirements; `openspec/changes/<slug>/` owns proposal/design and the **only** implementation checklist.
+- `.agent-docs/product.md` and `architecture.md` own approved vision and observed architecture.
+- `.agent-docs/decisions/` records consequential rationale and supersession, `research/` verified reusable findings and `worklog/` meaningful progress/problems.
+- `.agent-docs/status.md` links current work; it is not an event log or copied task list.
 
-## At task boundary (pause, handoff, PR, merge)
-1. Reconcile source code and OpenSpec tasks: only tick completed work, leave uncertain items open.
-2. Capture decisions or unexpected findings where they belong; update architecture when actual boundaries changed.
-3. Update STATUS with active OpenSpec change, short outcome, **verified vs unverified**, exact next action, blockers and source/evidence links.
-4. Include links to relevant logs/commits and any unresolved device/visual QA. Do not claim a Git clone will restore unpushed or ignored work.
-5. Avoid dumping entire conversations, recreating the same data in several files, or overwriting historical ADRs. Archive obsolete worklog entries by link, not silent deletion.
+## Write before losing useful context
+Update the canonical change and STATUS after a meaningful decision, implemented slice, test failure, before deliberate context compaction/model change, and before a risky operation where interruption could lose the next step. Do **not** journal every command or whole conversation.
 
-**Minimum handoff:** goal; canonical spec/change; actual edited files; verified result and evidence; outstanding problems; next concrete step. See `.agent-docs/templates/handoff.md`.
+Minimum checkpoint: goal/change path; code/scene paths and branch/revision; implemented vs remaining; actual checks, including NOT RUN; unresolved decisions/blockers; **next smallest action**. Note dirty/unpushed work explicitly.
+
+## Transfer or close
+1. Compare STATUS and OpenSpec checkboxes with the actual diff/source; only tick implemented tasks, never unverified QA.
+2. Record changed assumptions and tests with command, revision, environment and evidence locations.
+3. Keep STATUS short and add a [handoff](../templates/handoff.md) for substantial work.
+4. Check internal links with `bash scripts/check-docs.sh` if present; then commit/push non-secret context and source when authorized and needed for another PC.
+5. A new agent re-checks Git and actual code; uncommitted work, ignored assets or credentials never transfer automatically.
+
+Do not rewrite user-approved acceptance or claim unrun tests passed.

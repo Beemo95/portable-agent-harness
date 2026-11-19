@@ -1,13 +1,12 @@
 schema: spec-driven
 context: |
-  Portable Agent Harness is a Git-native, Markdown-first documentation template.
-  AGENTS.md routes to task-specific guidance; .agent-docs/status.md points to current work.
-  OpenSpec owns approved requirements, change design and the one implementation checklist.
-  Decisions, research and real verification evidence stay in Git-tracked Markdown.
-  No Python CLI, SQLite cache, duplicate task database or generated context packet.
-  Reconcile status with actual source and tests; never misrepresent missing visual QA.
+  Git-native Godot work uses AGENTS.md, .agent-docs/status.md, actual code/Git,
+  and one canonical OpenSpec implementation checklist per change.
+  Checkpoint significant decisions, implemented slices, failures and session/context changes.
+  Do not duplicate plans in a task database or change acceptance to claim success.
+  This template includes no actual game, so runtime/device tests are NOT RUN.
 rules:
   proposal:
-    - Define observable acceptance, failure cases, compatibility and rollback.
+    - State observable acceptance criteria, risks and compatibility.
   tasks:
-    - Include relevant verification and a short handoff for session changes.
+    - Include relevant verification and a factual next-session handoff.

@@ -1,14 +1,13 @@
 ---
 name: context-recovery
-description: Recover current task state from project Markdown, source and Git on a new session, model, or computer.
+description: Recover actual project work across sessions from Git, STATUS and the one canonical OpenSpec change.
 ---
-# Recover context (without a custom CLI)
+# Cold-session recovery (no extra runtime)
 
-1. Read `AGENTS.md`, STATUS, `git status --short` and `git log -5 --oneline`.
-2. Follow linked active OpenSpec change/tasks, decisions and handoff; if none is recorded, report that fact.
-3. Reconcile checked tasks and claimed tests with actual code, revision and evidence.
-4. Inspect only relevant source and task-specific guidance using native file tools. Separate verified, unverified and stale claims.
-5. Report goal, implemented, remaining, tested, blockers and smallest next action.
-6. At pause update canonical tasks/STATUS/handoff; commit/push non-secret work for transfer.
+1. Read `AGENTS.md`, STATUS, `git status --short` and `git log -5 --oneline` in the **actual** game repository.
+2. Follow linked active OpenSpec change's proposal, design and tasks, plus relevant handoff/decision and edited source; if no active work exists, say so.
+3. Identify the first unfinished task. Reconcile completed checkboxes against code and actual test evidence; flag stale notes, different branches and missing external assets.
+4. Read only the task-specific files/Skills needed; report goal, implemented, remaining, verified, NOT RUN, blockers and next concrete action.
+5. Before context compression or agent switch, checkpoint meaningful facts to canonical documents and STATUS; commit/push non-secret state if authorized.
 
-Never assume Git contains hidden reasoning, unpushed work, ignored assets or secrets.
+Prefer upstream OpenSpec workflow Skills when installed; no duplicate task database or generated Context Packet. Never invent lost chat reasoning or unpushed work.
