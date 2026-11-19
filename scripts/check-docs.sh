@@ -1,18 +1,28 @@
 #!/usr/bin/env bash
-# Offline checks, not a Markdown parser or proof that source and STATUS agree.
+# Offline documentation structure checks, NOT semantic code review or a game test.
 set -euo pipefail
 cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 errors="$(mktemp)"
 trap 'rm -f "$errors"' EXIT
 fail() { printf 'ERROR: %s\n' "$*" >&2; printf '%s\n' "$*" >> "$errors"; }
-for f in AGENTS.md README.md .agent-docs/index.md .agent-docs/status.md .agent-docs/rules/workflow.md .agent-docs/rules/documentation.md .agents/skills/context-recovery/SKILL.md openspec/config.yaml; do
+
+# Keep current-work pointers AND long-lived topic navigation discoverable.
+for f in AGENTS.md README.md .agent-docs/index.md .agent-docs/status.md \
+  .agent-docs/topics.md .agent-docs/rules/workflow.md \
+  .agent-docs/rules/specification.md .agent-docs/rules/development.md \
+  .agent-docs/rules/documentation.md .agents/skills/context-recovery/SKILL.md \
+  docs/knowledge-reuse.md docs/task-lifecycle.md openspec/config.yaml; do
   [[ -f "$f" ]] || fail "Missing required file: $f"
 done
-# Do NOT forbid tests/ or scripts/: a game may need both.
-for f in harness/cli.py harness/index.py scripts/harness.py .harness/context-routes.json .harness/authority-map.json project.harness.json; do
+
+# Only the removed Python harness is disallowed. Actual game scripts/ and tests/ are welcome.
+for f in harness/cli.py harness/index.py scripts/harness.py \
+  .harness/context-routes.json .harness/authority-map.json project.harness.json; do
   [[ ! -e "$f" ]] || fail "Removed PAH engine file still exists: $f"
 done
-# Common inline [label](relative/path#anchor) links; remote/reference-style links not checked.
+
+# Common relative inline Markdown links, including the topic map's links.
+# Not a full CommonMark parser: reference links, link anchors and semantics aren't validated.
 while IFS= read -r file; do
   while IFS= read -r link; do
     target="$(printf '%s\n' "$link" | sed -e 's/^](//' -e 's/)$//' -e 's/[?#].*$//')"
@@ -22,6 +32,7 @@ while IFS= read -r file; do
     [[ -e "$(dirname "$file")/$target" ]] || fail "Broken Markdown link: $file -> $target"
   done < <(grep -oE '\]\([^)]*\)' "$file" || true)
 done < <(find . \( -name .git -o -name .godot -o -name node_modules -o -name .venv \) -prune -o -type f -name '*.md' -print)
+
 status='.agent-docs/status.md'
 if [[ -f "$status" ]]; then
   for field in 'Active OpenSpec changes' 'Next action' 'Last updated' 'Verification'; do
@@ -48,4 +59,4 @@ if [[ -s "$errors" ]]; then
   printf 'Documentation check FAILED: %s issue(s)\n' "$(wc -l < "$errors" | tr -d ' ')" >&2
   exit 1
 fi
-printf 'Documentation check PASS (files, links, STATUS pointers)\n'
+printf 'Documentation check PASS (required files, local links, STATUS pointers)\n'
