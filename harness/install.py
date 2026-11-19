@@ -9,16 +9,21 @@ from .util import write_json_atomic
 def project_files(template_root: Path):
     """Select runtime files, not demonstration tasks, tests, caches or Git history."""
     primary = ['AGENTS.md', 'CLAUDE.md', 'GEMINI.md', 'project.harness.json',
-               'ai-docs/INDEX.md', 'ai-docs/product.md', 'ai-docs/architecture.md',
-               'openspec/config.yaml', 'mise.toml',
-               '.harness/context-routes.json', '.harness/authority-map.json',
+               'mise.toml', '.harness/context-routes.json', '.harness/authority-map.json',
                '.github/copilot-instructions.md', '.cursor/rules/harness.mdc']
     for part in primary:
         yield Path(part)
-    for subfolder in ('harness', 'scripts', 'docs', '.agents/skills'):
+    for subfolder in ('harness', 'scripts', 'docs', 'ai-docs', '.agents/skills',
+                      '.claude/agents', 'openspec'):
         for path in sorted((template_root / subfolder).rglob('*')):
-            if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc':
-                yield path.relative_to(template_root)
+            if not path.is_file() or '__pycache__' in path.parts or path.suffix == '.pyc':
+                continue
+            # A template's own architectural decisions must not become the
+            # new game's approved decisions.
+            relative = path.relative_to(template_root)
+            if relative.parts[:2] == ('ai-docs', 'decisions'):
+                continue
+            yield relative
 
 
 def install(template_root: Path, target: Path, name: str, *, dry_run=False):
@@ -39,16 +44,33 @@ def install(template_root: Path, target: Path, name: str, *, dry_run=False):
         shutil.copy2(template_root / part, dst)
     config_path = target / 'project.harness.json'
     config = json.loads(config_path.read_text(encoding='utf-8'))
-    config['project'] = {'name': name, 'purpose': 'Fill in verified user-approved goal', 'kind': 'project'}
+    config['project'] = {'name': name, 'purpose': 'Fill in verified Godot game goals', 'kind': 'godot-game'}
     # No generic harness-selftest is accepted as evidence for application features.
     config['verification']['gates'] = []
     write_json_atomic(config_path, config)
     routes_path = target / '.harness' / 'context-routes.json'
-    write_json_atomic(routes_path, {'schema_version': 1, 'routes': []})
+    # Install portable, documentation-only Godot hints; exclude template's
+    # implementation/test paths, which are not relevant to a new game.
+    template_routes = json.loads((template_root / '.harness' / 'context-routes.json').read_text(encoding='utf-8'))
+    game_routes = [route for route in template_routes.get('routes', [])
+                   if route.get('id', '').startswith('godot-')]
+    write_json_atomic(routes_path, {'schema_version': 1, 'routes': game_routes})
     (target / 'ai-docs' / 'product.md').write_text(
         '# Product intent\n\nDescribe user-approved goals and scope. Do not invent requirements.\n', encoding='utf-8')
     (target / 'ai-docs' / 'architecture.md').write_text(
         '# Project architecture\n\nInspect real project code and document known boundaries, risks and verification commands.\n',
+        encoding='utf-8')
+    # The snapshot is an index of observed project facts, not a fake game status.
+    status = target / 'ai-docs' / 'project' / 'STATUS.md'
+    status.write_text(
+        '# Current game project status\n\n'
+        f'- **Project:** {name}\n'
+        '- **Godot version/platform:** not inspected\n'
+        '- **Active OpenSpec change(s):** none\n'
+        '- **Implementation / test status:** not yet inspected or verified\n'
+        '- **Blockers:** actual project structure and acceptance criteria unknown\n'
+        '- **Next action:** inspect project.godot and affected scenes; update approved game specs\n'
+        '- **Last updated:** initialize when actual work begins\n',
         encoding='utf-8')
     # OpenSpec owns requirements/change plans; do not auto-install or overwrite upstream skills.
     (target / '.harness' / 'tasks').mkdir(parents=True, exist_ok=True)
@@ -56,6 +78,6 @@ def install(template_root: Path, target: Path, name: str, *, dry_run=False):
     (target / '.harness' / '.gitignore').write_text('cache/\ntmp/\n*.lock\n', encoding='utf-8')
     return {'target': str(target), 'files_created': len(paths), 'next': [
         'Review project.harness.json and add real project test commands; task DONE is blocked without gates.',
-        'Fill ai-docs/product.md and ai-docs/architecture.md with verified information.',
-        'Optional: install @fission-ai/openspec and run openspec init --tools claude,codex,gemini,hermes,agents after reviewing its generated files.',
+        'Read AGENTS.md; configure ai-docs/product.md, architecture.md, and project/STATUS.md from actual Godot files.',
+        'Only if needed, initialize official OpenSpec tools after reviewing generated changes to bundled Skills and adapters.',
         'Run doctor and lint. Commit to Git to transfer to a new computer.']}
