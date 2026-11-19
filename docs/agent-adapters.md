@@ -1,21 +1,29 @@
-# Agent adapters — tested configuration contracts, not tested model behavior
+# Agent adapters — evidence, precedence, and discovery limits
 
-**Source of truth:** `AGENTS.md`. Every agent must use the **actual game repository root**, current Git/code, canonical OpenSpec changes and project evidence. No chat-side memory is the project's source of truth. The templates do not guarantee that an agent will honor every instruction.
+**Source of project guidance:** AGENTS.md. This is a file-layout compatibility profile, **not a tested guarantee** that each agent will load or obey every instruction. Compare current host versions and trusted workspace settings before claiming success.
 
-| Agent | Always-on project instructions | Project Skills | Verify in the actual client |
+| Agent | Project instruction location | Skills | Verify on the installed client |
 | --- | --- | --- | --- |
-| Codex CLI / IDE | `AGENTS.md` | Shared `.agents/skills/<name>/SKILL.md` | New project session; ask it to describe the loaded instructions and available Skills |
-| Cursor | Root `AGENTS.md` (native support) | Shared `.agents/skills/<name>/SKILL.md` | New project Agent session; inspect applied rules and Skills |
-| Claude Code | `CLAUDE.md` contains `@AGENTS.md` (native import) | Portable forwarding adapters at `.claude/skills/<name>/SKILL.md` | Run `/context all` (and inspect the Skills menu); confirm root guidance is present |
-| Grok Build | `AGENTS.md` | Claude-compatible `.claude/skills/` forwarding adapters; do not assume automatic repo-local `.agents/skills/` scanning | Run `grok inspect` in a **trusted** project; check listed instructions/Skills |
-| Google Antigravity (AGY) | Root `AGENTS.md` | Shared `.agents/skills/` (current location; `.agent/skills/` is legacy) | Open workspace Customizations → Rules/Skills; confirm loaded project paths |
-| Gemini CLI (extra) | `GEMINI.md` imports `@./AGENTS.md` | Verify active client and installation separately | Use `/memory show` to verify imported instructions |
-| Hermes Agent (extra) | Requires correct workspace root and instruction discovery | May require a tool-specific linked skill path/initialization | Inspect Hermes's actual loaded instructions and Skills; don't infer from filenames |
+| Codex CLI / IDE | AGENTS.md | .agents/skills/ | Fresh project session; check loaded instruction sources |
+| Cursor | AGENTS.md | .agents/skills/ (also may discover .claude/skills/) | Inspect applied rules and Skills; confirm duplicates are not selected |
+| Claude Code | CLAUDE.md imports @AGENTS.md | .claude/skills/ forwarding files | /context all; inspect invoked skill path |
+| Grok Build | AGENTS.md **and CLAUDE.md may both load** | .agents/skills/ and .claude/skills/ supported in repo documentation; .grok/skills/ is primary in xAI's concise docs | grok inspect in a trusted repo, inspect actual chosen same-name Skill and loaded rule files |
+| Google Antigravity | AGENTS.md | .agents/skills/ (legacy .agent/skills/ supported) | Check workspace Customizations/skills and actual loaded paths |
+| Gemini CLI | GEMINI.md imports @./AGENTS.md | Host installation/version dependent | /memory show, confirm included instructions |
+| Hermes Agent | Check workspace and trust; older versions differ | Shared project Skills conditional on version/trust | Inspect actual loaded instructions/Skills |
 
-**Why there are 2 Skill folders:** `.agents/skills/` holds the **canonical 12 Skills**. Claude Code discovers project Skills under `.claude/skills/` instead. Each checked-in Claude adapter has the same name/description and **points to the canonical SKILL.md**, avoiding symlinks (which are unreliable in Windows clones) and avoiding duplicated full instructions. Some Grok versions also discover those Claude adapters. Changes to a Skill's trigger description should be mirrored in its adapter; CI checks names/paths, not semantic equivalence.
+## Conflicts and duplicate discovery
 
-**No ceremonial prompt needed:** in a correctly configured workspace, the user can simply ask for a feature. A fresh-session test must verify which rules and Skills actually loaded. Host settings, versions, workspace trust and higher-priority instructions may change behavior.
+- The 12 canonical project Skills live at .agents/skills/. For Claude compatibility, the 12 files at .claude/skills/ are **short adapters** pointing to the canonical body. They do not define independent workflows.
+- Grok's detailed upstream repo documentation says it can scan .grok/, .agents/ and .claude/ and deduplicates same-name Skills by priority; its concise public documentation lists .grok/ and plugin/config paths. **Do not guess which Skill won** in an untested Grok version. Run grok inspect; if necessary disable a duplicate discovery location in host configuration, not by rewriting the canonical Skill.
+- Grok also discovers both AGENTS.md and CLAUDE.md. The latter contains only the import @AGENTS.md, so there is no distinct policy to conflict with AGENTS.md; however, Grok's actual import expansion/deduplication must be observed rather than assumed. Avoid new host-specific normative instructions inside adapters.
+- Claude Code now has native AGENTS.md support on supported versions; its official guidance says keeping @AGENTS.md in CLAUDE.md is a valid compatibility fallback and does not duplicate that file within Claude's own context. This does **not** imply Grok behaves the same way.
+- Current user-approved acceptance and version-matched actual source take precedence over obsolete docs as evidence; host/security policies always govern actions. Surface real conflicts for review rather than silently choosing one.
 
-**OpenSpec:** the upstream CLI and generated `openspec-*` workflows are **optional and not bundled**. See [official setup](openspec-workflow.md); avoid assuming the 12 project Skills are replacements for upstream OpenSpec workflows.
+## Optional OpenSpec and runtime tests
 
-Official references: [Claude memory](https://code.claude.com/docs/en/memory) · [Claude Skills](https://code.claude.com/docs/en/skills) · [Cursor rules](https://cursor.com/docs/rules) · [Antigravity Skills](https://antigravity.google/docs/skills) · [Grok Build Skills](https://docs.x.ai/build/features/skills-plugins-marketplaces) · [OpenSpec supported tools](https://openspec.dev/docs/supported-tools).
+OpenSpec's current **default is machine-global Skills**. For a portable repo install, explicitly use project scope and review generated changes; see [OpenSpec setup](openspec-workflow.md). Its own generated openspec-* Skills are not bundled here.
+
+After adopting this template, start fresh sessions using only a simple feature request. Check instruction and skill discovery, source-code inspection before design, phase gates, and claimed vs actual tests. These checks have **not been run** in Codex/Cursor/Claude/Grok/Antigravity in this template.
+
+References: [Claude memory](https://code.claude.com/docs/en/memory) · [Claude Skills](https://code.claude.com/docs/en/skills) · [Cursor Skills](https://cursor.com/help/customization/skills) · [Antigravity Skills](https://antigravity.google/docs/skills) · [Grok public Skills](https://docs.x.ai/build/features/skills-plugins-marketplaces) · [Grok upstream implementation docs](https://github.com/xai-org/grok-build/blob/main/crates/codegen/xai-grok-pager/docs/user-guide/08-skills.md) · [OpenSpec supported tools](https://openspec.dev/docs/supported-tools).
