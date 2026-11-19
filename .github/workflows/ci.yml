@@ -1,18 +1,22 @@
-name: Documentation integrity
+name: Harness integrity
 on:
   push:
   pull_request:
+  schedule:
+    # Every Monday: flag review deadlines without claiming source content was refreshed.
+    - cron: '17 2 * * 1'
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  docs:
+  integrity:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Syntax of validation scripts
+      - name: Shell script syntax
         run: bash -n scripts/check-docs.sh tests/docs-lint.sh
-      - name: Internal docs links and active work pointers
+      - name: Check instructions, OpenSpec pointers, docs, source review deadline
         run: bash scripts/check-docs.sh
-      - name: Negative tests
+      - name: Negative regression tests
         run: bash tests/docs-lint.sh
-# Real games can and should contain their own tests/ and scripts/.
+# Does not run a Godot game or prove an agent obeys instructions.

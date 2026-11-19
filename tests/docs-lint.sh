@@ -46,4 +46,26 @@ sed -i 's/^description: .*/description: intentionally stale trigger/' "$tmp/repo
 if check; then echo 'FAIL: stale adapter metadata was not detected' >&2; exit 1; fi
 cp "$root/.claude/skills/feature-work/SKILL.md" "$tmp/repo/.claude/skills/feature-work/SKILL.md"
 
-printf 'Documentation negative tests PASS (links, active change, topic map, imports, skill discovery)\n'
+touch "$tmp/repo/project.godot"
+if check; then echo 'FAIL: real game accepted with stale template STATUS' >&2; exit 1; fi
+rm "$tmp/repo/project.godot"
+
+mkdir -p "$tmp/repo/openspec/changes/empty-feature"
+sed -i 's@\*\*Active OpenSpec changes:\*\* none@**Active OpenSpec changes:** openspec/changes/empty-feature/@' "$tmp/repo/.agent-docs/status.md"
+if check; then echo 'FAIL: empty active change was not detected' >&2; exit 1; fi
+cp "$root/.agent-docs/status.md" "$tmp/repo/.agent-docs/status.md"
+
+mkdir -p "$tmp/repo/openspec/changes/archive"
+sed -i 's@\*\*Active OpenSpec changes:\*\* none@**Active OpenSpec changes:** openspec/changes/archive/@' "$tmp/repo/.agent-docs/status.md"
+if check; then echo 'FAIL: archived task recorded as active was not detected' >&2; exit 1; fi
+cp "$root/.agent-docs/status.md" "$tmp/repo/.agent-docs/status.md"
+
+sed -i 's/^schema: spec-driven/schema: invalid-schema/' "$tmp/repo/openspec/config.yaml"
+if check; then echo 'FAIL: invalid OpenSpec schema was not detected' >&2; exit 1; fi
+cp "$root/openspec/config.yaml" "$tmp/repo/openspec/config.yaml"
+
+sed -i 's/^- \*\*Next review by:\*\* .*/- **Next review by:** 2000-01-01/' "$tmp/repo/docs/source-audit.md"
+if check; then echo 'FAIL: overdue source review was not detected' >&2; exit 1; fi
+cp "$root/docs/source-audit.md" "$tmp/repo/docs/source-audit.md"
+
+printf 'Documentation negative tests PASS (links, active state, schema, import adapters, source freshness)\n'

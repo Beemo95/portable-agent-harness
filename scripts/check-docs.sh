@@ -12,7 +12,7 @@ for f in AGENTS.md README.md .agent-docs/index.md .agent-docs/status.md \
   .agent-docs/rules/specification.md .agent-docs/rules/development.md \
   .agent-docs/rules/documentation.md .agents/skills/context-recovery/SKILL.md \
   docs/knowledge-reuse.md docs/task-lifecycle.md docs/agent-adapters.md \
-  CLAUDE.md GEMINI.md openspec/config.yaml; do
+  docs/source-audit.md CLAUDE.md GEMINI.md openspec/config.yaml; do
   [[ -f "$f" ]] || fail "Missing required file: $f"
 done
 
@@ -45,6 +45,10 @@ for source in .agents/skills/*/SKILL.md; do
   grep -Fxq "name: $name" "$adapter" || fail "Adapter skill name mismatch: $adapter"
   [[ -n "$expected_desc" && "$expected_desc" == "$adapter_desc" ]] || fail "Skill description mismatch: $adapter"
   grep -Fq "(../../../.agents/skills/$name/SKILL.md)" "$adapter" || fail "Adapter points to wrong source: $adapter"
+  [[ "$name" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ && ${#name} -le 64 ]] || fail "Invalid Agent Skills name: $name"
+  [[ ${#expected_desc} -ge 1 && ${#expected_desc} -le 1024 ]] || fail "Invalid Agent Skills description: $source"
+  [[ "$(head -n 1 "$source")" == '---' ]] || fail "Canonical Skill lacks YAML frontmatter: $source"
+  [[ "$(head -n 1 "$adapter")" == '---' ]] || fail "Adapter lacks YAML frontmatter: $adapter"
 done
 for adapter in .claude/skills/*/SKILL.md; do
   [[ -f "$adapter" ]] || continue
@@ -64,6 +68,62 @@ while IFS= read -r file; do
     [[ -e "$(dirname "$file")/$target" ]] || fail "Broken Markdown link: $file -> $target"
   done < <(grep -oE '\]\([^)]*\)' "$file" || true)
 done < <(find . \( -name .git -o -name .godot -o -name node_modules -o -name .venv \) -prune -o -type f -name '*.md' -print)
+
+# OpenSpec config must be parsable by its declared schema rather than silently ignored.
+if [[ -f openspec/config.yaml ]]; then
+  [[ "$(grep -c '^schema:' openspec/config.yaml || true)" -eq 1 ]] || fail 'OpenSpec config needs exactly one schema field'
+  grep -Fxq 'schema: spec-driven' openspec/config.yaml || fail 'OpenSpec schema must be spec-driven'
+  grep -Eq '^context: *\|' openspec/config.yaml || fail 'OpenSpec config missing context block'
+  grep -Eq '^rules: *
+if [[ -f "$status" ]]; then
+  for field in 'Active OpenSpec changes' 'Next action' 'Last updated' 'Verification'; do
+    grep -Fq -- "**$field:**" "$status" || fail "STATUS missing: $field"
+  done
+  active="$(sed -n 's/^- \*\*Active OpenSpec changes:\*\* //p' "$status" | head -n 1)"
+  if [[ -z "$active" ]]; then
+    fail 'STATUS active changes must be none or exact OpenSpec paths'
+  elif [[ "$active" != 'none' ]]; then
+    IFS=',' read -r -a active_refs <<< "$active"
+    for ref in "${active_refs[@]}"; do
+      ref="${ref//\`/}"
+      ref="${ref//[[:space:]]/}"
+      if [[ ! "$ref" =~ ^openspec/changes/[a-zA-Z0-9._-]+/?$ || "$ref" == 'openspec/changes/archive/' || "$ref" == 'openspec/changes/archive' ]]; then
+        fail "Malformed/archived active OpenSpec reference: $ref"
+        continue
+      fi
+      [[ -d "$ref" ]] || { fail "Active OpenSpec directory missing: $ref"; continue; }
+      [[ -f "$ref/proposal.md" || -f "$ref/tasks.md" ]] || fail "Active OpenSpec change contains no proposal.md or tasks.md: $ref"
+    done
+  fi
+  if [[ -f project.godot ]]; then
+    grep -Fq 'TEMPLATE STATE' "$status" && fail 'Actual project.godot exists but STATUS still claims TEMPLATE STATE'
+    grep -Fq 'not inspected; no game included' "$status" && fail 'Actual game has uninitialized engine status'
+    grep -Fq 'not initialized for a game' "$status" && fail 'Actual game has uninitialized date'
+  fi
+  if [[ -f project.godot ]] || ! grep -Fq 'TEMPLATE STATE' "$status"; then
+    grep -Eq '^- \*\*Last updated:\*\* [0-9]{4}-[0-9]{2}-[0-9]{2}' "$status" || fail 'Project STATUS needs dated Last updated'
+    grep -Eq '^- \*\*Next action:\*\* .+' "$status" || fail 'Project STATUS needs concrete Next action'
+  fi
+fi
+if [[ -s "$errors" ]]; then
+  printf 'Documentation check FAILED: %s issue(s)\n' "$(wc -l < "$errors" | tr -d ' ')" >&2
+  exit 1
+fi
+printf 'Documentation check PASS (required files, local links, STATUS pointers)\n'
+ openspec/config.yaml || fail 'OpenSpec config missing rules mapping'
+fi
+
+# Review metadata signals a stale source claim, not that content is necessarily current.
+if [[ -f docs/source-audit.md ]]; then
+  due="$(sed -n 's/^- \*\*Next review by:\*\* //p' docs/source-audit.md | head -n 1)"
+  reviewed="$(sed -n 's/^- \*\*Reviewed on:\*\* //p' docs/source-audit.md | head -n 1)"
+  today="$(date -u +%Y-%m-%d)"
+  [[ "$reviewed" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || fail "Missing valid source review date: $reviewed"
+  [[ "$due" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || fail "Missing valid source due date: $due"
+  if [[ "$due" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ && "$today" > "$due" ]]; then
+    fail "External source review overdue ($due); reverify official sources before extending it"
+  fi
+fi
 
 status='.agent-docs/status.md'
 if [[ -f "$status" ]]; then
