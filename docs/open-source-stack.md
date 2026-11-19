@@ -6,7 +6,7 @@
 |---|---|---|
 | Approved capabilities and requirements | OpenSpec `openspec/specs/` | OpenSpec CLI / generated Agent Skills |
 | Proposed change, design and implementation checklist | OpenSpec `openspec/changes/<change>/` | `harness workflow list/status/context` read-only projection |
-| Source and decisions | Git + source files + `ai-docs/decisions` | Existing Git-aware context + current file inspection |
+| Source and decisions | Git + source files + `.agent-docs/decisions` | Existing Git-aware context + current file inspection |
 | In-flight execution checkpoints and independent QA evidence | PAH `.harness/tasks/` and `.harness/evidence/` | Existing `task`/`resume`/`verify`; do not mirror OpenSpec tasks as independent acceptance authorities |
 | Search | ripgrep (optional) + PAH disposable SQLite FTS5 | `search` and `context`; symbol-aware Serena can be enabled only for code projects |
 | Reproducible tools | `mise.toml` (optional) | No mandatory server, automatic installer or Docker requirement |

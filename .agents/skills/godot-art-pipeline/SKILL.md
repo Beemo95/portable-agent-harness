@@ -5,7 +5,7 @@ description: Plan, produce or integrate Godot game art, pixel sprites, direction
 
 # Godot art pipeline
 
-1. Read `ai-docs/rules/design-art.md` and relevant existing art/reference scenes. Identify expected output format (GDScript-generated/vector/image); don't substitute one for another.
+1. Read `.agent-docs/rules/design-art.md` and relevant existing art/reference scenes. Identify expected output format (GDScript-generated/vector/image); don't substitute one for another.
 2. Document actual target size, frames/directions, camera/projection, palette and pivots from approved spec, not guesses.
 3. Build/edit reusable source assets or code, keep provenance and import settings, then integrate into a real Godot scene when asked.
 4. Test filtering/pixel snap, direction ordering, collisions, depth ordering, screen sizes and animation loops as appropriate.

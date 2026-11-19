@@ -5,7 +5,7 @@ description: Independently validate Godot gameplay, scenes, animation, touch/UI,
 
 # Game QA / Playtest
 
-1. Read `ai-docs/rules/verification.md` and acceptance criteria. Independently inspect the current files and running environment.
+1. Read `.agent-docs/rules/verification.md` and acceptance criteria. Independently inspect the current files and running environment.
 2. Select gates by impact: engine import/parse, automated scenario tests, running scene visuals, touch/device, export, crashes, performance.
 3. Run only available checks; report PASS / FAIL / NOT RUN for each. Record Godot binary/version, command, logs, revision, device or screenshots.
 4. Headless editor success is **not** visual or real-device acceptance. Never turn missing binary, skipped tests or mock output into PASS.

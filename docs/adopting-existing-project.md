@@ -4,7 +4,7 @@ The default `init` command refuses overwrite collisions by design. Existing matu
 
 ## Safe migration
 
-1. On a new branch, inventory current `AGENTS.md`, `ai-docs`, test scripts and adapter files.
+1. On a new branch, inventory current `AGENTS.md`, `project`, test scripts and adapter files.
 2. Back up project state. Run `init TARGET --dry-run` to list conflicts. If conflicts exist, stage the harness in a temporary empty directory and copy modules intentionally instead of overwriting.
 3. Keep existing product docs, approved math, architecture and reference tests as their **original authoritative sources**.
 4. Add `.harness/context-routes.json` hints pointing to real code and doc paths; run `lint`.

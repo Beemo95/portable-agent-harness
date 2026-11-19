@@ -13,7 +13,7 @@ def project_files(template_root: Path):
                '.github/copilot-instructions.md', '.cursor/rules/harness.mdc']
     for part in primary:
         yield Path(part)
-    for subfolder in ('harness', 'scripts', 'docs', 'ai-docs', '.agents/skills',
+    for subfolder in ('harness', 'scripts', 'docs', '.agent-docs', '.agents/skills',
                       '.claude/agents', 'openspec'):
         for path in sorted((template_root / subfolder).rglob('*')):
             if not path.is_file() or '__pycache__' in path.parts or path.suffix == '.pyc':
@@ -21,7 +21,7 @@ def project_files(template_root: Path):
             # A template's own architectural decisions must not become the
             # new game's approved decisions.
             relative = path.relative_to(template_root)
-            if relative.parts[:2] == ('ai-docs', 'decisions'):
+            if relative.parts[:2] == ('.agent-docs', 'decisions'):
                 continue
             yield relative
 
@@ -55,13 +55,13 @@ def install(template_root: Path, target: Path, name: str, *, dry_run=False):
     game_routes = [route for route in template_routes.get('routes', [])
                    if route.get('id', '').startswith('godot-')]
     write_json_atomic(routes_path, {'schema_version': 1, 'routes': game_routes})
-    (target / 'ai-docs' / 'product.md').write_text(
+    (target / '.agent-docs' / 'product.md').write_text(
         '# Product intent\n\nDescribe user-approved goals and scope. Do not invent requirements.\n', encoding='utf-8')
-    (target / 'ai-docs' / 'architecture.md').write_text(
+    (target / '.agent-docs' / 'architecture.md').write_text(
         '# Project architecture\n\nInspect real project code and document known boundaries, risks and verification commands.\n',
         encoding='utf-8')
     # The snapshot is an index of observed project facts, not a fake game status.
-    status = target / 'ai-docs' / 'project' / 'STATUS.md'
+    status = target / '.agent-docs' / 'STATUS.md'
     status.write_text(
         '# Current game project status\n\n'
         f'- **Project:** {name}\n'
@@ -78,6 +78,6 @@ def install(template_root: Path, target: Path, name: str, *, dry_run=False):
     (target / '.harness' / '.gitignore').write_text('cache/\ntmp/\n*.lock\n', encoding='utf-8')
     return {'target': str(target), 'files_created': len(paths), 'next': [
         'Review project.harness.json and add real project test commands; task DONE is blocked without gates.',
-        'Read AGENTS.md; configure ai-docs/product.md, architecture.md, and project/STATUS.md from actual Godot files.',
+        'Read AGENTS.md; configure .agent-docs/product.md, .agent-docs/architecture.md, and .agent-docs/STATUS.md from actual Godot files.',
         'Only if needed, initialize official OpenSpec tools after reviewing generated changes to bundled Skills and adapters.',
         'Run doctor and lint. Commit to Git to transfer to a new computer.']}

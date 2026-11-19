@@ -80,8 +80,8 @@ def lint(root: Path) -> dict:
                     errors.append(f'route {route["id"]}: unsafe path {path}')
     except FileNotFoundError:
         errors.append('.harness/context-routes.json missing')
-    if not (root / 'ai-docs' / 'INDEX.md').exists():
-        warnings.append('ai-docs/INDEX.md missing')
+    if not (root / '.agent-docs' / 'INDEX.md').exists():
+        warnings.append('.agent-docs/INDEX.md missing')
     gates = gates_by_id(cfg)
     for task in list_tasks(root):
         contract, state = load_task(root, task['id'])

@@ -4,11 +4,11 @@
 
 ## Godot documentation-first profile
 
-- **Start here:** [AGENTS.md](AGENTS.md) routes only to the relevant `ai-docs/rules/*.md`; [ai-docs/INDEX.md](ai-docs/INDEX.md) is the full map (do not read every file).
+- **Start here:** [AGENTS.md](AGENTS.md) routes only to the relevant `.agent-docs/rules/*.md`; [.agent-docs/INDEX.md](.agent-docs/INDEX.md) is the full map (do not read every file).
 - **Rules:** workflow, spec, research, GDScript development, design/art, debugging, QA, documentation/handoff.
-- **Specialists:** [director, developer, artist, QA, researcher](ai-docs/agents/INDEX.md) are optional shared role briefs; [Claude project agents](.claude/agents/) are a verified provider-specific adapter, not automatic support across all bots.
+- **Specialists:** [director, developer, artist, QA, researcher](.agent-docs/agents/INDEX.md) are optional shared role briefs; [Claude project agents](.claude/agents/) are a verified provider-specific adapter, not automatic support across all bots.
 - **Bundled Skills:** on-demand Agent Skills under [`.agents/skills/`](.agents/skills/), including gameplay specs, implementation, art, debugging, QA, research and handoff.
-- **Living memory:** [STATUS](ai-docs/project/STATUS.md) for current snapshot; `openspec/` for specs/change plans; `ai-docs/decisions/`, `research/` and `worklog/` for durable rationale and evidence.
+- **Living memory:** [STATUS](.agent-docs/STATUS.md) for current snapshot; `openspec/` for specs/change plans; `.agent-docs/decisions/`, `research/` and `worklog/` for durable rationale and evidence.
 - **Installation and limitations:** [Godot profile guide](docs/godot-profile.md). Existing PAH Python CLI and tests remain optional support, not the main workflow. **27+ harness self-tests do not mean a game has been tested.**
 
 ## Previous Python/OpenSpec CLI reference (v0.2 baseline)
@@ -130,7 +130,7 @@ The `--expect` number is a **current state revision**, not a scripted magic valu
 - **Portable:** Markdown/JSON+Git are authoritative; `.harness/cache/` SQLite index is disposable.
 - **Cheap by default:** keyword/symbol retrieval before embeddings; no LLM tokens are consumed by CLI itself.
 - **Verification boundary:** zero tests or skipped unittest cases fail by default; code drift invalidates evidence; unconfigured gates block task closure. Other runner formats, forged logs, and semantic validity require additional validation.
-- **Scoped information:** task contracts, route hints, retrieved file paths; no mass injection of `ai-docs` into every prompt.
+- **Scoped information:** task contracts, route hints, retrieved file paths; no mass injection of `project` into every prompt.
 - **Agent-independent:** every provider can invoke the same command via a terminal; provider-specific instruction files are pointers.
 
 ## Docs

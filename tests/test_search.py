@@ -16,9 +16,9 @@ class RetrievalTests(unittest.TestCase):
         install(ROOT, self.root, 'Demo')
         (self.root / 'src').mkdir()
         (self.root / 'src' / 'player.gd').write_text('class_name Player\nfunc do_isometric_movement():\n\tpass\n', encoding='utf-8')
-        (self.root / 'ai-docs' / 'movement.md').write_text('# Movement\nIsometric character movement directions NE NW SE SW\n', encoding='utf-8')
+        (self.root / '.agent-docs' / 'movement.md').write_text('# Movement\nIsometric character movement directions NE NW SE SW\n', encoding='utf-8')
         write_json_atomic(self.root / '.harness' / 'context-routes.json', {'schema_version': 1, 'routes': [
-            {'id': 'movement', 'keywords': ['isometric', '이동'], 'documents': ['ai-docs/movement.md'], 'paths': ['src/player.gd']}
+            {'id': 'movement', 'keywords': ['isometric', '이동'], 'documents': ['.agent-docs/movement.md'], 'paths': ['src/player.gd']}
         ]})
         self.cfg = load_config(self.root)
 
@@ -28,7 +28,7 @@ class RetrievalTests(unittest.TestCase):
     def test_fts_index_and_incremental_update(self):
         self.assertGreaterEqual(build_index(self.root, self.cfg)['indexed_files'], 2)
         r = search(self.root, self.cfg, 'isometric movement')
-        self.assertTrue(any(x['path'] in {'src/player.gd', 'ai-docs/movement.md'} for x in r))
+        self.assertTrue(any(x['path'] in {'src/player.gd', '.agent-docs/movement.md'} for x in r))
         (self.root / 'src' / 'player.gd').write_text('func do_isometric_movement():\n\treturn 2\n', encoding='utf-8')
         stats = build_index(self.root, self.cfg)
         self.assertGreaterEqual(stats['updated_files'], 1)

@@ -7,7 +7,7 @@
 3. Refresh SQLite FTS5 cache from current repository files and search source/doc chunks.
 4. Prefer exact path/symbol references; surface path + line range + short excerpt.
 5. Inspect current full source (when actually modifying it); identify contradictions.
-6. Expand search only when necessary; do not load whole `ai-docs` into every agent turn.
+6. Expand search only when necessary; do not load whole `project` into every agent turn.
 
 ## Token budget
 

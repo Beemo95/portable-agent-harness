@@ -6,7 +6,7 @@ description: Reproduce a repository on a fresh machine without inventing depende
 
 Use on first entry to a repository, new machine, or new domain. Never overwrite existing project intent or test baselines.
 
-1. Read repository `AGENTS.md` and `ai-docs/INDEX.md`; inspect actual root layout.
+1. Read repository `AGENTS.md` and `.agent-docs/INDEX.md`; inspect actual root layout.
 2. Run `python3 scripts/harness.py doctor` and `python3 scripts/harness.py lint`.
 3. Review `project.harness.json`; preview `bootstrap` commands, request approval before executing unfamiliar install/modify actions.
 4. Enumerate actual source-of-truth documents and available test commands; identify credentials or assets that are external blockers without exposing them.

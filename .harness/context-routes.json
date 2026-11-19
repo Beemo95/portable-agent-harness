@@ -76,11 +76,11 @@
         "요구사항"
       ],
       "documents": [
-        "ai-docs/rules/specification.md",
-        "ai-docs/product.md"
+        ".agent-docs/rules/specification.md",
+        ".agent-docs/product.md"
       ],
       "paths": [
-        "ai-docs/project/STATUS.md",
+        ".agent-docs/STATUS.md",
         "openspec/config.yaml"
       ]
     },
@@ -98,11 +98,11 @@
         "리팩터링"
       ],
       "documents": [
-        "ai-docs/rules/development.md",
-        "ai-docs/architecture.md"
+        ".agent-docs/rules/development.md",
+        ".agent-docs/architecture.md"
       ],
       "paths": [
-        "ai-docs/agents/developer.md"
+        ".agent-docs/agents/developer.md"
       ]
     },
     {
@@ -120,8 +120,8 @@
         "픽셀"
       ],
       "documents": [
-        "ai-docs/rules/design-art.md",
-        "ai-docs/agents/artist.md"
+        ".agent-docs/rules/design-art.md",
+        ".agent-docs/agents/artist.md"
       ],
       "paths": [
         ".agents/skills/godot-art-pipeline/SKILL.md"
@@ -140,11 +140,11 @@
         "성능"
       ],
       "documents": [
-        "ai-docs/rules/verification.md",
-        "ai-docs/rules/debugging.md"
+        ".agent-docs/rules/verification.md",
+        ".agent-docs/rules/debugging.md"
       ],
       "paths": [
-        "ai-docs/agents/qa.md"
+        ".agent-docs/agents/qa.md"
       ]
     },
     {
@@ -160,8 +160,8 @@
         "라이선스"
       ],
       "documents": [
-        "ai-docs/rules/research.md",
-        "ai-docs/agents/researcher.md"
+        ".agent-docs/rules/research.md",
+        ".agent-docs/agents/researcher.md"
       ],
       "paths": [
         ".agents/skills/research-and-evidence/SKILL.md"
@@ -180,11 +180,11 @@
         "기록"
       ],
       "documents": [
-        "ai-docs/rules/documentation.md",
-        "ai-docs/rules/workflow.md"
+        ".agent-docs/rules/documentation.md",
+        ".agent-docs/rules/workflow.md"
       ],
       "paths": [
-        "ai-docs/project/STATUS.md"
+        ".agent-docs/STATUS.md"
       ]
     }
   ]

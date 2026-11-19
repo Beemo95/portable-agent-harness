@@ -17,7 +17,7 @@ This is a directory, not a list of documents to load at startup. Start with [`..
 ## Living project records
 - [`product.md`](product.md): approved game vision, player/platform constraints, non-goals.
 - [`architecture.md`](architecture.md): verified scene/data boundaries, engine/version, directory map.
-- [`project/STATUS.md`](project/STATUS.md): one-screen current snapshot, active change links, blockers, next step.
+- [`STATUS.md`](STATUS.md): one-screen current snapshot, active change links, blockers, next step.
 - [`decisions/`](decisions/): why important choices were made; preserve superseded decisions.
 - [`research/`](research/): dated source evaluations and experiments; no uncited assertions.
 - [`worklog/`](worklog/): concise event/iteration notes when they matter to resumption.

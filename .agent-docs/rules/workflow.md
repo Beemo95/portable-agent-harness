@@ -1,7 +1,7 @@
 # Workflow — every project task
 
 ## Start (brief)
-1. Identify task type, priority, requested outcome, acceptance criteria, and whether a linked OpenSpec change already exists. For an ongoing task, read `ai-docs/project/STATUS.md` and only its linked task/decision/handoff documents.
+1. Identify task type, priority, requested outcome, acceptance criteria, and whether a linked OpenSpec change already exists. For an ongoing task, read `.agent-docs/STATUS.md` and only its linked task/decision/handoff documents.
 2. Check the actual `project.godot`, scenes/scripts/assets affected, Git diff and relevant Godot version. Do **not** assume `project.godot` exists in the harness template.
 3. Follow the task-specific rule from `AGENTS.md`. Avoid unrelated research or reading the entire rules library.
 4. Small reversible tasks may proceed with a brief plan; significant UX, performance budget, monetization, platform or gameplay changes need a spec/change proposal and explicit decision where intent is ambiguous.
@@ -14,7 +14,7 @@
 
 ## Finish / pause
 - Update any authoritative OpenSpec `tasks.md` **only for work actually done**; it is not QA evidence.
-- Update `ai-docs/project/STATUS.md`: next action, blockers, tested/untested, change ID, related commits/paths.
+- Update `.agent-docs/STATUS.md`: next action, blockers, tested/untested, change ID, related commits/paths.
 - Update ADR, research, architecture, or worklog **only if material facts changed**. Do not log trivial edits or every command.
 - Preserve reproducible evidence and unresolved risks. If transfer to another PC matters, commit/push the relevant work and linked documents; never claim uncommitted edits are recoverable from Git.
 

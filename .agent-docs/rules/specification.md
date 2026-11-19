@@ -2,7 +2,7 @@
 
 Use for new mechanics, balancing, UI flows, persistent data changes and scope decisions. Prefer official OpenSpec files rather than a second requirements tracker.
 
-1. Read `ai-docs/product.md`, current relevant specs in `openspec/specs/`, and affected scene scripts; state player problem and target platform.
+1. Read `.agent-docs/product.md`, current relevant specs in `openspec/specs/`, and affected scene scripts; state player problem and target platform.
 2. Describe the player-visible behavior, inputs, transitions, fail/edge cases, restart/save semantics, accessibility where relevant and performance constraints.
 3. Define acceptance scenarios with observable outcomes, not only implementation steps. Include mobile touch/rotation/aspect ratio if applicable.
 4. For significant changes, keep proposal/design/tasks under `openspec/changes/<slug>/`; use actual upstream CLI when available and record when unavailable.
