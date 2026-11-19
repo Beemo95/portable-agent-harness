@@ -2,6 +2,8 @@
 
 A small **Markdown + Git + OpenSpec** profile for AI-assisted development. When asked to build a feature, the agent should investigate existing code and prior decisions, ask only truly unresolved user questions, plan testable phases, implement and verify them in order, then preserve reusable discoveries for future separate tasks. No mandatory Python/SQLite, task database, MCP server or context-packet engine.
 
+> **Supported Godot target: 4.7+ in the 4.x series** (including later compatible 4.x patches/minors; not pinned to 4.7.2). Check the real editor version and version-specific APIs before work. Versions below 4.7 need a reviewed migration; Godot 5 is not assumed compatible. See [Godot compatibility policy](docs/godot-profile.md).
+
 > **This repository is a template, not a playable game.** It contains no inspected Godot game code. Use [safe adoption](docs/adopting-existing-project.md) to merge these rules into a real project.
 
 ## Two complementary workflows

@@ -1,5 +1,8 @@
 schema: spec-driven
 context: |
+  Target Godot 4.7+ within 4.x (not pinned to 4.7.2); inspect the real
+  installed editor version, APIs and addons before work. Report pre-4.7 or
+  major-version mismatches; never upgrade the user's project silently.
   Documentation-first, Git-native game development. Read actual existing code,
   tests, project version and relevant prior domain knowledge before planning.
   Investigate factual unknowns; ask the user only for material product choices,

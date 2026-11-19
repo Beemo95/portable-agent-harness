@@ -1,6 +1,6 @@
 # Godot-first agent project harness — entry point
 
-This is a **documentation template, not a playable game**. Git, source code, OpenSpec, and concise Markdown provide portable context. No Python CLI, SQLite index, custom task database or required harness server. **Do not preload every document.**
+This is a **documentation template, not a playable game**. **Target engine: Godot 4.7+ within the Godot 4.x series** (4.7.x or later compatible 4.x, not a fixed 4.7.2 patch). In an adopted game, inspect the actual engine binary with `godot --version` and project files before coding; report anything below 4.7 or a major-version mismatch, and never upgrade silently. Git, source code, OpenSpec, and concise Markdown provide portable context. No Python CLI, SQLite index, custom task database or required harness server. **Do not preload every document.**
 
 ## Every request: inspect before deciding
 1. **Resume:** read [STATUS](.agent-docs/status.md), its active OpenSpec change/handoff, `git status` and recent commits. Check actual source and verification evidence; a stale note is not proof.

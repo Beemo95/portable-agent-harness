@@ -1,9 +1,10 @@
 # Current project status
 
-> TEMPLATE STATE — no actual Godot game is included. Replace template facts only after inspecting an adopted game repository.
+> TEMPLATE STATE — no actual Godot game is included. Replace template facts only after inspecting an adopted game repository. **Target policy:** Godot 4.7+ within 4.x; this is not an observed runtime version.
 
 - **Project:** not configured; documentation template only
-- **Godot version / renderer / platforms:** not inspected; no game included
+- **Godot target:** 4.7+ within Godot 4.x (no exact patch pin)
+- **Actual Godot version / renderer / platforms:** not inspected; no game included
 - **Active OpenSpec changes:** none
 - **Current goal:** connect this documentation profile to a real project
 - **Implemented:** no game code inspected

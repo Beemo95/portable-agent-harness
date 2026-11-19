@@ -2,7 +2,7 @@
 
 This repository is **only a documentation template**. Do not overwrite an established game's source/tests or pretend the template's STATUS describes that game.
 
-1. Create a review branch. Inspect the game's current `AGENTS.md`, Skills, tool-specific adapters, actual source/`project.godot`, Git and existing tests.
+1. Create a review branch. Inspect the game's current `AGENTS.md`, Skills, tool-specific adapters, actual source/`project.godot`, Git, existing tests and observed Godot executable version. This template targets **Godot 4.7+ within 4.x**. If the game runs on an older or different major version, report the mismatch and plan a reviewed migration rather than silently changing the game.
 2. Merge only relevant files from this profile: `AGENTS.md` guidance, `.agent-docs/`, `.agents/skills/`, optional host adapters and `openspec/`. Reconcile conflicts manually, preserving existing decisions and scene/test baselines.
 3. Fill product intent, observed architecture/version/platform, known test commands and **real** work state. Remove `TEMPLATE STATE` and date STATUS's `Last updated`; use `Active OpenSpec changes: none` or exact existing `openspec/changes/<slug>/` path(s).
 4. Keep **one** implementation checklist under the change's `tasks.md` and link real issues/PRs, decisions, worklogs and evidence. Record actual PASS/FAIL/NOT RUN separately.

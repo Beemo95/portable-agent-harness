@@ -1,5 +1,10 @@
 # Godot QA and release verification
 
+## Engine-version gate
+- Supported target is **Godot 4.7+ within the 4.x series**. Establish the actual binary/editor version (e.g., `godot --version`) and check required addons and project format before execution. Record the observed version and command in QA evidence.
+- If unavailable, mark version-dependent verification **NOT RUN**. If an installed engine is older than 4.7 or is an unapproved major-version change, report **BLOCKED / mismatch** rather than claiming compatibility or silently upgrading.
+- Testing on one 4.x release proves only that observed environment, not every future 4.x patch/minor. Validate any claimed range with appropriate version-specific evidence.
+
 ## Test choice
 - Validate the acceptance criteria, then choose an appropriate check: static/parse, automated gameplay, real editor/runtime, visual/playtest, platform/device and export.
 - No game is created by the harness template. If `project.godot` or Godot binary is missing, mark the gate **not run** (not PASS).
