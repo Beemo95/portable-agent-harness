@@ -1,18 +1,36 @@
-# Project Knowledge Index
+# Godot project knowledge map (read selectively)
 
-Only open the material relevant to the current task.
+This is a directory, not a list of documents to load at startup. Start with [`../AGENTS.md`](../AGENTS.md); read `rules/workflow.md` then only relevant sections below.
 
-- `product.md`: project intent and scope.
-- `architecture.md`: component boundaries and current architecture.
-- `decisions/`: approved ADRs and their supersession chain.
-- `../docs/context-engineering.md`: context search and token-budget policy.
-- `../docs/task-lifecycle.md`: tasks, checkpoints and model-agnostic handoffs.
-- `../docs/verification.md`: evidence and completion gates.
-- `../docs/security.md`: trust boundaries, secrets, execution safety.
+## Task-specific rules
+| Intent | Read |
+| --- | --- |
+| All work | [`rules/workflow.md`](rules/workflow.md) |
+| New mechanic / design changes | [`rules/specification.md`](rules/specification.md) |
+| Godot code / scene changes | [`rules/development.md`](rules/development.md) |
+| Art, assets, animation, UI | [`rules/design-art.md`](rules/design-art.md) |
+| Online information / libraries | [`rules/research.md`](rules/research.md) |
+| Debugging | [`rules/debugging.md`](rules/debugging.md) |
+| QA / release / device tests | [`rules/verification.md`](rules/verification.md) |
+| Writing records, closing work | [`rules/documentation.md`](rules/documentation.md) |
 
-**Source-of-truth:** explicit user-approved requirements govern intended behavior; code and actual tests describe current behavior; conflicts require reconciliation, not silent overwrite.
+## Living project records
+- [`product.md`](product.md): approved game vision, player/platform constraints, non-goals.
+- [`architecture.md`](architecture.md): verified scene/data boundaries, engine/version, directory map.
+- [`project/STATUS.md`](project/STATUS.md): one-screen current snapshot, active change links, blockers, next step.
+- [`decisions/`](decisions/): why important choices were made; preserve superseded decisions.
+- [`research/`](research/): dated source evaluations and experiments; no uncited assertions.
+- [`worklog/`](worklog/): concise event/iteration notes when they matter to resumption.
+- [`templates/`](templates/): templates for work logs, research and handoffs; never fabricate entries to fill a template.
 
-## Open-source integration
+## OpenSpec and roles
+- [`../openspec/specs/`](../openspec/specs/) owns approved requirements; [`../openspec/changes/`](../openspec/changes/) owns active proposals/design/checklists. Do not copy them into another planning database.
+- [`agents/INDEX.md`](agents/INDEX.md) and [`agents/`](agents/) are optional specialist **role briefs**, not a promise that all AI runtimes spawn agents.
+- [`.agents/skills/`](../.agents/skills/) holds on-demand workflows (`SKILL.md` files).
 
-- [OpenSpec planning authority and optional OSS stack](../docs/open-source-stack.md)
-- OpenSpec specs and pending change plans: `../openspec/`
+## Additional reference, only if needed
+- [`../docs/open-source-stack.md`](../docs/open-source-stack.md): OSS integration boundaries.
+- [`../docs/task-lifecycle.md`](../docs/task-lifecycle.md): optional PAH state/checkpoint CLI.
+- [`../docs/security.md`](../docs/security.md): trust and command execution.
+
+**Reconciliation rule:** approved spec describes intended behavior; the current Godot project and runtime logs describe observed behavior. Record conflicts; do not silently rewrite history.

@@ -1,4 +1,17 @@
-# Portable Agent Harness (PAH) v0.2.0 — OpenSpec-first pilot
+# Portable Agent Harness — Godot-first documentation profile (v0.3 pilot)
+
+**Default focus: Godot game development with durable, selective Markdown rules.** The core is **AGENTS.md → task-specific rules → optional agents/skills → living project records**. Preserve decisions, research, implementation status and QA evidence as the game evolves; Git makes that history portable. This repository is a **template, not a Godot game**.
+
+## Godot documentation-first profile
+
+- **Start here:** [AGENTS.md](AGENTS.md) routes only to the relevant `ai-docs/rules/*.md`; [ai-docs/INDEX.md](ai-docs/INDEX.md) is the full map (do not read every file).
+- **Rules:** workflow, spec, research, GDScript development, design/art, debugging, QA, documentation/handoff.
+- **Specialists:** [director, developer, artist, QA, researcher](ai-docs/agents/INDEX.md) are optional shared role briefs; [Claude project agents](.claude/agents/) are a verified provider-specific adapter, not automatic support across all bots.
+- **Bundled Skills:** on-demand Agent Skills under [`.agents/skills/`](.agents/skills/), including gameplay specs, implementation, art, debugging, QA, research and handoff.
+- **Living memory:** [STATUS](ai-docs/project/STATUS.md) for current snapshot; `openspec/` for specs/change plans; `ai-docs/decisions/`, `research/` and `worklog/` for durable rationale and evidence.
+- **Installation and limitations:** [Godot profile guide](docs/godot-profile.md). Existing PAH Python CLI and tests remain optional support, not the main workflow. **27+ harness self-tests do not mean a game has been tested.**
+
+## Previous Python/OpenSpec CLI reference (v0.2 baseline)
 
 **An open-source-first, model-neutral project harness pilot.** Clone this repository onto a different computer, install Python 3.10+ and your preferred AI agent, and recover project tasks **from the files**, not from its chat history or personal memory.
 
