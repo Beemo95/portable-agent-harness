@@ -1,0 +1,6 @@
+---
+description: Repository-native agent work protocol
+globs: "**/*"
+alwaysApply: true
+---
+Read AGENTS.md as the authoritative agent entry point. Follow its task recovery and verification procedure.

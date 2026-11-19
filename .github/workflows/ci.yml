@@ -1,0 +1,29 @@
+name: PAH portable tests
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  python:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ['3.10', '3.12']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Harness doctor
+        run: python scripts/harness.py doctor
+      - name: Harness lint
+        run: python scripts/harness.py lint
+      - name: OpenSpec project file projection
+        run: python scripts/harness.py workflow list
+      - name: Static syntax
+        run: python -m compileall -q harness

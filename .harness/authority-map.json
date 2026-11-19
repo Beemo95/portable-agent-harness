@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "authorities": [
+    {"kind": "product_intent", "source": ".agent-docs/product.md", "policy": "Approved intent wins over undocumented implementation; conflicts must be investigated"},
+    {"kind": "architecture", "source": ".agent-docs/architecture.md", "policy": "Use approved ADRs for rationale; code and tests show actual present behavior"},
+    {"kind": "decisions", "source": ".agent-docs/decisions/", "policy": "Latest approved, not superseded ADR"},
+    {"kind": "task_status", "source": ".harness/tasks/<TASK-ID>/state.json", "policy": "Reconcile against current repository before acting"},
+    {"kind": "test_evidence", "source": ".harness/evidence/<TASK-ID>/", "policy": "Only tool-produced evidence matching current workspace fingerprint counts"},
+    {"kind": "runtime", "source": "actual files and executed tools", "policy": "Never treat prose as proof of successful execution"}
+  ]
+}

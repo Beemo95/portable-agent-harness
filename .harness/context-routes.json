@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "id": "context-memory",
+      "keywords": [
+        "context",
+        "memory",
+        "retrieval",
+        "검색",
+        "기억",
+        "맥락",
+        "인덱스"
+      ],
+      "documents": [
+        "docs/context-engineering.md",
+        "docs/architecture.md"
+      ],
+      "paths": [
+        "harness/index.py",
+        "harness/context.py",
+        "tests/test_search.py"
+      ]
+    },
+    {
+      "id": "task-recovery",
+      "keywords": [
+        "task",
+        "checkpoint",
+        "resume",
+        "handoff",
+        "작업",
+        "재개",
+        "인계",
+        "체크포인트"
+      ],
+      "documents": [
+        "docs/task-lifecycle.md",
+        "docs/architecture.md"
+      ],
+      "paths": [
+        "harness/tasks.py",
+        "tests/test_tasks.py"
+      ]
+    },
+    {
+      "id": "quality-verification",
+      "keywords": [
+        "test",
+        "verify",
+        "gate",
+        "qa",
+        "검증",
+        "테스트",
+        "품질"
+      ],
+      "documents": [
+        "docs/verification.md",
+        "docs/security.md"
+      ],
+      "paths": [
+        "harness/verification.py",
+        "tests/test_verification.py"
+      ]
+    },
+    {
+      "id": "godot-spec",
+      "keywords": [
+        "godot",
+        "gameplay",
+        "feature",
+        "mechanic",
+        "게임",
+        "기획",
+        "스펙",
+        "요구사항"
+      ],
+      "documents": [
+        ".agent-docs/rules/specification.md",
+        ".agent-docs/product.md"
+      ],
+      "paths": [
+        ".agent-docs/status.md",
+        "openspec/config.yaml"
+      ]
+    },
+    {
+      "id": "godot-development",
+      "keywords": [
+        "gdscript",
+        "scene",
+        "node",
+        "signal",
+        "script",
+        "씬",
+        "코드",
+        "개발",
+        "리팩터링"
+      ],
+      "documents": [
+        ".agent-docs/rules/development.md",
+        ".agent-docs/architecture.md"
+      ],
+      "paths": [
+        ".agent-docs/agents/developer.md"
+      ]
+    },
+    {
+      "id": "godot-art",
+      "keywords": [
+        "pixel",
+        "sprite",
+        "animation",
+        "isometric",
+        "tilemap",
+        "art",
+        "애니메이션",
+        "아트",
+        "디자인",
+        "픽셀"
+      ],
+      "documents": [
+        ".agent-docs/rules/design-art.md",
+        ".agent-docs/agents/artist.md"
+      ],
+      "paths": [
+        ".agents/skills/godot-art-pipeline/SKILL.md"
+      ]
+    },
+    {
+      "id": "godot-qa",
+      "keywords": [
+        "playtest",
+        "game-test",
+        "qa",
+        "debug",
+        "테스트",
+        "버그",
+        "검증",
+        "성능"
+      ],
+      "documents": [
+        ".agent-docs/rules/verification.md",
+        ".agent-docs/rules/debugging.md"
+      ],
+      "paths": [
+        ".agent-docs/agents/qa.md"
+      ]
+    },
+    {
+      "id": "godot-research",
+      "keywords": [
+        "plugin",
+        "addon",
+        "license",
+        "research",
+        "오픈소스",
+        "조사",
+        "리서치",
+        "라이선스"
+      ],
+      "documents": [
+        ".agent-docs/rules/research.md",
+        ".agent-docs/agents/researcher.md"
+      ],
+      "paths": [
+        ".agents/skills/research-and-evidence/SKILL.md"
+      ]
+    },
+    {
+      "id": "godot-handoff",
+      "keywords": [
+        "handoff",
+        "resume",
+        "continue",
+        "status",
+        "인계",
+        "재개",
+        "중단",
+        "기록"
+      ],
+      "documents": [
+        ".agent-docs/rules/documentation.md",
+        ".agent-docs/rules/workflow.md"
+      ],
+      "paths": [
+        ".agent-docs/status.md"
+      ]
+    }
+  ]
+}
