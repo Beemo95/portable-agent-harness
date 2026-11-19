@@ -1,22 +1,19 @@
-# Workflow — every project task
+# Workflow — every task
 
-## Start (brief)
-1. Identify task type, priority, requested outcome, acceptance criteria, and whether a linked OpenSpec change already exists. For an ongoing task, read `.agent-docs/status.md` and only its linked task/decision/handoff documents.
-2. Check the actual `project.godot`, scenes/scripts/assets affected, Git diff and relevant Godot version. Do **not** assume `project.godot` exists in the harness template.
-3. Follow the task-specific rule from `AGENTS.md`. Avoid unrelated research or reading the entire rules library.
-4. Small reversible tasks may proceed with a brief plan; significant UX, performance budget, monetization, platform or gameplay changes need a spec/change proposal and explicit decision where intent is ambiguous.
+## Start
+1. Identify the request. If resuming, inspect `.agent-docs/status.md`, its linked OpenSpec change/handoff, `git status`, recent Git commits, actual source and verification evidence. If status is stale, report the discrepancy.
+2. Read matching rules/Skills only as needed; inspect real `project.godot`/scenes/version in an adopted game. This template has no playable project.
+3. For substantial features, confirm approved acceptance and use a **single** OpenSpec change. Tiny changes need no invented task contracts.
 
-## While working
-- Work in reviewable slices: source/scene changes + relevant test/preview + a short record of nonobvious decisions or issues.
-- Make uncertain assumptions explicit; preserve source links and actual command output paths.
-- Prefer one active writer per overlapping scene/resource; other agents provide findings or isolated worktrees. Subagent requests need scoped input and a concise handback, not whole-session transcripts.
-- Do not claim scene/asset visual fidelity based solely on code or a headless engine check. If visual verification is unavailable, report that gap.
+## Work
+- Make small changes and run relevant real tool/tests; report skipped or unavailable visual/device QA.
+- Do not change approved goals or golden test expectations to conceal a failure.
+- Store meaningful decisions, research and failures in canonical docs, not duplicated checklists.
+- Avoid concurrent overlapping edits; isolate using branches/worktrees when appropriate.
 
-## Finish / pause
-- Update any authoritative OpenSpec `tasks.md` **only for work actually done**; it is not QA evidence.
-- Update `.agent-docs/status.md`: next action, blockers, tested/untested, change ID, related commits/paths.
-- Update ADR, research, architecture, or worklog **only if material facts changed**. Do not log trivial edits or every command.
-- Preserve reproducible evidence and unresolved risks. If transfer to another PC matters, commit/push the relevant work and linked documents; never claim uncommitted edits are recoverable from Git.
+## Finish or pause
+- Check only implemented items in OpenSpec `tasks.md`. A checked box is not independent QA.
+- Update STATUS with active change, verified/unverified facts, blockers, next concrete action and source/evidence links.
+- Add a [handoff](../templates/handoff.md) if needed. Commit/push relevant non-secret work for a new PC; no uncommitted/ignored state will transfer.
 
-## Done means
-Requirement/acceptance status, actual implementation, tests, visual/device QA, and delivery are separate states. Mark only what the available evidence supports.
+Implementation, automated tests, visual/device verification and release are separate states.

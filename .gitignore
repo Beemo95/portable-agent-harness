@@ -1,12 +1,8 @@
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.venv/
+# Local secrets, editor data and Godot import cache
 .env
 .env.*
 !.env.example
-.harness/cache/
-.harness/tmp/
 .DS_Store
 .vscode/
 .idea/
+.godot/

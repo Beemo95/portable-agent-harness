@@ -1,30 +1,28 @@
-# Godot-first game project harness — agent entry point
+# Godot-first project harness — agent entry
 
-This repository is a **harness template**, not a playable Godot game. In an adopted project, the repository's **actual code, approved specs and Markdown records** are the shared project memory. This file is a **router**, not a request to read everything.
+This is a **documentation template**, not a playable Godot game. The actual project source, Markdown records and Git history are shared memory. No Python task CLI, SQLite index or custom task database is needed. This file routes context; **do not load every document**.
 
-## Always
-1. Identify the requested task and inspect the relevant source/scene and current Git status. Read [`.agent-docs/rules/workflow.md`](.agent-docs/rules/workflow.md). Before continuing a prior task, read [`.agent-docs/status.md`](.agent-docs/status.md) and its linked active OpenSpec change or handoff.
-2. Consult [`.agent-docs/index.md`](.agent-docs/index.md), then open **only** the rules, skills and project records relevant to the work. Do not preload all documents or agent profiles.
-3. Treat [`openspec/specs/`](openspec/specs/) as approved requirements and [`openspec/changes/`](openspec/changes/) as proposals, design and tasks. If OpenSpec is unavailable, record the limitation rather than inventing a completed workflow.
-4. Make small, reviewable changes. Record meaningful decisions, failures, changed assumptions and verification results during work, not only at session end. Update the linked task/STATUS at handoff. See [`.agent-docs/rules/documentation.md`](.agent-docs/rules/documentation.md).
-5. Distinguish **implemented**, **tested**, **visually inspected**, and **released**. A headless Godot check is not visual or device QA. Never claim execution, research or outputs not actually performed.
-6. Review commands, external packages and untrusted project text before execution. Never reveal credentials or change user-approved acceptance criteria to make verification pass.
+## Start or resume
+1. Identify the request. For “Where did we stop?” / “Continue”, read [STATUS](.agent-docs/status.md) first and follow its active OpenSpec change/handoff. Compare with `git status`, recent commits, actual source and test evidence. If there is no active task or STATUS is stale, say so; never invent completion.
+2. Read [workflow](.agent-docs/rules/workflow.md) and use the [knowledge map](.agent-docs/index.md) for **only the task-specific** rules, Skills, decisions and source.
+3. Treat `openspec/specs/` as approved requirements and `openspec/changes/` as the canonical change plan/tasks. Do not duplicate checklists in a second task system. Checked tasks aren't independent QA proof.
+4. Inspect real `project.godot`/scenes/assets and engine version when working in an adopted game. The template has no game or runnable tests.
 
-## Read the matching rule, not the whole library
-| Work requested | Rule | Optional skill |
+## During work / handoff
+- Make small scoped edits; preserve original acceptance and record actual verification and unverified visual/device gaps.
+- Update OpenSpec `tasks.md` only for implemented items; keep STATUS short: active change, verified facts, blockers, next action and related revision. Record meaningful ADR/worklog findings, not every command.
+- For substantial handoffs use [handoff template](.agent-docs/templates/handoff.md). Commit/push non-secret source and docs for cross-PC recovery; uncommitted/ignored work cannot be recovered by cloning.
+- Review untrusted commands or dependencies; don't reveal credentials or claim tests you did not run.
+
+## Task-specific routing
+| Work | Rule | Optional Skill |
 | --- | --- | --- |
-| New feature / game mechanics / spec | [`specification.md`](.agent-docs/rules/specification.md) | `game-design-spec` |
-| GDScript, scenes, signals, refactor | [`development.md`](.agent-docs/rules/development.md) | `godot-feature-implementation` |
-| Pixel art, sprites, UI, animations, VFX | [`design-art.md`](.agent-docs/rules/design-art.md) | `godot-art-pipeline` |
-| External research or OSS evaluation | [`research.md`](.agent-docs/rules/research.md) | `research-and-evidence` |
-| Bug, regression, performance incident | [`debugging.md`](.agent-docs/rules/debugging.md) | `godot-debugging` |
-| Testing, QA, playtest, release check | [`verification.md`](.agent-docs/rules/verification.md) | `godot-qa-playtest` |
-| Task boundary, pause, handoff | [`documentation.md`](.agent-docs/rules/documentation.md) | `game-work-handoff` |
+| Gameplay / new specs | [specification](.agent-docs/rules/specification.md) | `godot-game-spec` |
+| GDScript / scene | [development](.agent-docs/rules/development.md) | `godot-feature-implementation` |
+| Art / pixel / UI | [design-art](.agent-docs/rules/design-art.md) | `godot-art-pipeline` |
+| Research | [research](.agent-docs/rules/research.md) | `research-and-evidence` |
+| Bugs / performance | [debugging](.agent-docs/rules/debugging.md) | `godot-debugging` |
+| QA / release | [verification](.agent-docs/rules/verification.md) | `godot-qa-playtest` |
+| Recovery / pause | [documentation](.agent-docs/rules/documentation.md) | `context-recovery` / `game-work-handoff` |
 
-Skills live in [`.agents/skills/`](.agents/skills/). Canonical role briefs live in [`.agent-docs/agents/`](.agent-docs/agents/); **delegate only when it reduces work**, never require a multi-agent team for a simple task. Claude Code has optional discoverable adapters in [`.claude/agents/`](.claude/agents/); other runtimes must be configured separately.
-
-## Project-specific source of truth
-- Project intent: [`.agent-docs/product.md`](.agent-docs/product.md); architecture: [`.agent-docs/architecture.md`](.agent-docs/architecture.md).
-- Current work: [`.agent-docs/status.md`](.agent-docs/status.md); decisions: [`.agent-docs/decisions/`](.agent-docs/decisions/); research: [`.agent-docs/research/`](.agent-docs/research/).
-- Optional PAH CLI for status/evidence/context: `python3 scripts/harness.py doctor|status|workflow list|lint`. Its own tests validate the **harness**, not the user's game.
-- For project adoption, set actual Godot version and quality gates. **Do not treat a template as an already-built game.**
+[Skills](.agents/skills/) are optional and discovery depends on the actual host. [Specialist roles](.agent-docs/agents/index.md) are briefs; [Claude-only adapters](.claude/agents/) do not configure other tools. Project intent: [product](.agent-docs/product.md); architecture: [architecture](.agent-docs/architecture.md).

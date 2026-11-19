@@ -1,29 +1,25 @@
-name: PAH portable tests
+name: Documentation smoke check
 on:
   push:
   pull_request:
 permissions:
   contents: read
 jobs:
-  python:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python: ['3.10', '3.12']
-    runs-on: ${{ matrix.os }}
+  documentation:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python }}
-      - name: Unit tests
-        run: python -m unittest discover -s tests -v
-      - name: Harness doctor
-        run: python scripts/harness.py doctor
-      - name: Harness lint
-        run: python scripts/harness.py lint
-      - name: OpenSpec project file projection
-        run: python scripts/harness.py workflow list
-      - name: Static syntax
-        run: python -m compileall -q harness
+      - name: Verify canonical files exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in AGENTS.md README.md .agent-docs/status.md .agent-docs/index.md .agent-docs/rules/workflow.md openspec/config.yaml .agents/skills/context-recovery/SKILL.md; do
+            test -f "$p" || { echo "Missing $p"; exit 1; }
+          done
+      - name: Ensure legacy runtime remains removed
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in harness tests scripts .harness project.harness.json mise.toml; do
+            test ! -e "$p" || { echo "Legacy runtime path exists: $p"; exit 1; }
+          done

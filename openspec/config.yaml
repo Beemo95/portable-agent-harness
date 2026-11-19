@@ -1,14 +1,13 @@
 schema: spec-driven
 context: |
-  Portable Agent Harness uses Git-backed Markdown/JSON files, Python 3.10+ standard library,
-  and disposable SQLite FTS5 search. Requirements and change proposals live in OpenSpec;
-  PAH records execution checkpoints and independent verification evidence.
-  Agent-neutral goal: clone a project on a new PC, reconstruct the right context,
-  continue work, verify real outcomes, and commit a portable handoff.
-  Do not duplicate OpenSpec checklists in a separate planning store.
-  Do not claim a passing command proves semantic acceptance.
+  Portable Agent Harness is a Git-native, Markdown-first documentation template.
+  AGENTS.md routes to task-specific guidance; .agent-docs/status.md points to current work.
+  OpenSpec owns approved requirements, change design and the one implementation checklist.
+  Decisions, research and real verification evidence stay in Git-tracked Markdown.
+  No Python CLI, SQLite cache, duplicate task database or generated context packet.
+  Reconcile status with actual source and tests; never misrepresent missing visual QA.
 rules:
   proposal:
-    - Identify acceptance scenarios, failure cases, compatibility and rollback.
+    - Define observable acceptance, failure cases, compatibility and rollback.
   tasks:
-    - Include reproducible tests and a fresh-session handoff when relevant.
+    - Include relevant verification and a short handoff for session changes.

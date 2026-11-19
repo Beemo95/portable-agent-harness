@@ -1,2 +1,3 @@
 # Agent entry
-Read [`AGENTS.md`](AGENTS.md) as the single source of project instructions. Run `python3 scripts/harness.py doctor` and retrieve task-specific context before editing.
+
+Read [AGENTS.md](AGENTS.md). To recover current work, read `.agent-docs/status.md`, its linked OpenSpec change and actual Git/source/test evidence. No Python CLI is needed.

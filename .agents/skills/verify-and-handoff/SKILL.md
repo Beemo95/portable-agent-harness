@@ -1,15 +1,11 @@
 ---
 name: verify-and-handoff
-description: Independently check acceptance and create portable next-session handoff.
+description: Independently check project acceptance and record a factual Markdown/Git handoff.
 ---
-# Verify, classify and hand off
-
-1. Read the *original* user-approved acceptance criteria and the current source diff, not only the implementer's completion narrative.
-2. Run task-specific automated gates with `python3 scripts/harness.py verify TASK-ID`.
-3. Check saved evidence corresponds to the current HEAD and workspace fingerprint.
-4. For UI, design, multimedia or external actions, evaluate actual rendered/runtime artifacts and mark unobserved criteria `NOT_VERIFIED`.
-5. Fail with reproduction instructions and evidence rather than broad unsupported claims; do not rewrite tests to match broken behavior.
-6. Only transition `verifying -> done` after required project-specific checks and approvals; record blocked or changed requirements explicitly.
-7. Create `task checkpoint` and `task handoff`; commit and push non-secret task artifacts if another PC must resume.
-
-Independent QA review should be read-only to application source and golden expected data wherever technically enforceable.
+# Verification + handoff
+1. Read original approved spec/change and inspect actual code/Git diff, not only developer claims.
+2. Run **real project** tests, runtime, visual or device checks as appropriate. Missing tools = NOT RUN.
+3. Record exact commands, revision, environment, observed PASS/FAIL/NOT RUN, evidence and remaining gaps.
+4. Do not rewrite tests or approved acceptance simply to claim PASS.
+5. Update implemented items in the canonical OpenSpec checklist and STATUS; link a short handoff if needed.
+6. Commit/push non-secret artifacts for future sessions. No custom Python verifier or task checkpoints.

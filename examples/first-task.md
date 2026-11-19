@@ -1,18 +1,7 @@
-# Example task workflow
+# Example: “What were we working on?”
 
-```sh
-python3 scripts/harness.py doctor
-python3 scripts/harness.py status
-python3 scripts/harness.py task new DEMO-001 --title "Improve context retrieval" --goal "Make Korean query retrieval more robust" --accept "Korean task query finds relevant project files" --gate unit --gate compile
-python3 scripts/harness.py task show DEMO-001
-python3 scripts/harness.py task transition DEMO-001 ready --expect 0
-python3 scripts/harness.py task transition DEMO-001 in_progress --expect 1
-python3 scripts/harness.py context "Korean context search" --task DEMO-001
-python3 scripts/harness.py task checkpoint DEMO-001 --expect 2 --note "Work started"
-python3 scripts/harness.py verify DEMO-001
-python3 scripts/harness.py task transition DEMO-001 verifying --expect 3
-python3 scripts/harness.py task transition DEMO-001 done --expect 4
-python3 scripts/harness.py resume DEMO-001
-```
+An agent reads `AGENTS.md`, then STATUS and the linked OpenSpec change. It checks the original proposal/design/tasks, current `git status` / commits, affected code and real test evidence. It reports what is implemented, what is unverified and the smallest next action.
 
-The example illustrates the lifecycle. In real work, implementation and its test must be completed before verification; simply passing tests unrelated to the feature is **not proof** of its acceptance. Configure feature-specific gates before marking done.
+Example change path `openspec/changes/add-player-dash/` is **illustrative** and does not exist in this template. For a real feature, use the one `tasks.md` checklist, run actual project checks, update STATUS, record blockers and commit/push source + context before switching PC.
+
+If this template has no active work, the correct answer is “none recorded,” not a fabricated project history.

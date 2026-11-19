@@ -1,14 +1,14 @@
 ---
 name: context-recovery
-description: Recover current task state on a new session, model or computer with minimal context.
+description: Recover current task state from project Markdown, source and Git on a new session, model, or computer.
 ---
-# Context recovery
+# Recover context (without a custom CLI)
 
-1. Obtain the project root and (if available) Task ID; run `doctor`, `status`, then `resume TASK-ID`.
-2. Compare checkpoint fingerprint/HEAD to current source and inspect working tree. Treat drift as a question to investigate, not as proof of completion.
-3. Call `context "current work" --task TASK-ID --budget 1800`. Read cited files in full only when needed.
-4. Separate explicit approved decisions, verified facts, outdated notes, unverified assumptions and missing external dependencies.
-5. Confirm next safe slice and which tests apply. If missing essential context cannot be recovered, record a blocker or ask the user instead of inventing it.
-6. Save a new checkpoint and short handoff when switching agents or ending a meaningful stage.
+1. Read `AGENTS.md`, STATUS, `git status --short` and `git log -5 --oneline`.
+2. Follow linked active OpenSpec change/tasks, decisions and handoff; if none is recorded, report that fact.
+3. Reconcile checked tasks and claimed tests with actual code, revision and evidence.
+4. Inspect only relevant source and task-specific guidance using native file tools. Separate verified, unverified and stale claims.
+5. Report goal, implemented, remaining, tested, blockers and smallest next action.
+6. At pause update canonical tasks/STATUS/handoff; commit/push non-secret work for transfer.
 
-Do not try to reconstruct hidden model deliberations; recover observable state, artifacts and rationale instead.
+Never assume Git contains hidden reasoning, unpushed work, ignored assets or secrets.

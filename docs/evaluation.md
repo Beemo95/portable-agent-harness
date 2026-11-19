@@ -1,35 +1,11 @@
-# Evaluation playbook — falsifiable harness quality
+# Evaluate real cross-session continuation
 
-## Compare strategies on identical tasks
+Compare on the **same real partly completed feature**, source revision, model/tool budget and held-out acceptance:
+- A: code + Git alone
+- B: A + AGENTS router
+- C: B + STATUS + OpenSpec tasks/decisions/handoff
+- D: C + optional native search/Skills
 
-- A: project files only, no harness cues.
-- B: short AGENTS.md and docs index.
-- C: B + task/checkpoint/handoff.
-- D: C + lexical retrieval/context routing.
-- E: D + meaningful verification gates.
+Commit/push source and context; start a new session/model on a clean clone with no prior chat. Ask “What was done? What remains? What was verified? What's next?” Check against the actual files/test evidence, continue one slice and evaluate correctness, hallucinated completion, missing context, tokens, retries and QA gaps.
 
-Use the same starting Git commit, same task spec, same agent/model budget and tools where possible. Repeat across diverse tasks: tiny bug, new feature, cross-module refactor, UI change, factual research, paperwork. Have an independent assessor evaluate completion.
-
-## Metrics
-
-- Recovery correctness (what was actually completed / what remains).
-- Critical context recall, false assumptions, stale-document reliance.
-- End-to-end acceptance success rate.
-- Accepted-task cost (tokens, retries, human intervention, runtime).
-- Retrieval precision/recall and tokens consumed during initialization.
-- Wrongly declared completion, regressions, authorization problems.
-
-## Built-in smoke evaluation
-
-`python3 scripts/harness.py eval cold-start` makes an isolated copy without `.git` and cached index; it runs doctor, lint and context. This tests **basic portability**, not complete replacement-PC or cross-model performance.
-
-## Stronger manual acceptance
-
-1. Commit a partly completed feature, including its checkpoint and task state.
-2. Push branch and clone to a genuinely separate PC or clean VM.
-3. Use a different model/agent with no prior conversation and only the cloned repo.
-4. Ask it to retrieve the task, reconcile current files, correctly identify the next slice and implement it.
-5. Compare actual output to independently held-out tests and assess artifacts.
-6. Measure cost/tokens and repeat for baseline without structured task state.
-
-Don't report "100% continuation" or "80% token reduction" without executing this protocol on multiple realistic tasks.
+This is a **manual protocol, not completed benchmark evidence**. Do not claim universal token savings, automated continuation or cross-model correctness without running the test.

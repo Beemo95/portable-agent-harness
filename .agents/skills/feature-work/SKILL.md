@@ -1,14 +1,11 @@
 ---
 name: feature-work
-description: Safely execute a small feature slice against a durable task contract.
+description: Implement small feature slices using OpenSpec, actual source and factual Git handoff.
 ---
 # Feature work
-
-1. `status` / `resume TASK-ID` / `context "requested change" --task TASK-ID`.
-2. Compare checkpoint to Git and working tree; inspect relevant current source files.
-3. Confirm task is ready, acceptance criteria map to real tests, no unresolved blockers, and branch/worktree edit ownership is clear.
-4. Implement one vertical slice with minimally scoped changes. Add or adapt relevant tests without changing protected expected outputs to conceal failure.
-5. Run targeted checks, update task state with `--expect` current revision, then checkpoint.
-6. Submit source diff, test command/results, unresolved risks and short next action. Do not claim GUI success without GUI execution.
-
-Escalate to `deep-plan` when architecture or product requirements change. Use a second worker only for genuinely independent work.
+1. Read AGENTS/STATUS, linked OpenSpec change, real source and Git state.
+2. Confirm original acceptance, pending tasks, file ownership and the next safe slice.
+3. Implement scoped changes and preserve golden tests and approved intent.
+4. Run real project checks; report command/evidence/revision and unavailable visual/device QA.
+5. Update only completed tasks, meaningful decisions and STATUS. Commit/push for cross-PC handoff.
+6. Use deep-plan only for significant risk. No Python task transitions or custom checkpoints.
