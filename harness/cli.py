@@ -65,7 +65,8 @@ def cold_start(root: Path):
         ]
         results = []
         for name, command in cases:
-            p = subprocess.run(command, cwd=target, capture_output=True, text=True, timeout=45)
+            p = subprocess.run(command, cwd=target, capture_output=True, text=True,
+                               encoding='utf-8', errors='replace', timeout=45)
             try:
                 parsed = json.loads(p.stdout)
             except json.JSONDecodeError:
@@ -136,7 +137,21 @@ def execute(args, root: Path):
     raise ValueError(f'Unknown operation: {args.command}')
 
 
+
+def configure_output_encoding() -> None:
+    """Use stable UTF-8 CLI output even when Windows pipes default to a legacy codepage.
+
+    Unicode may occur in filenames, documentation snippets and JSON responses.
+    Reconfiguring rather than globally changing locale keeps this contract local to
+    our CLI; non-standard streams without ``reconfigure`` are left untouched.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, 'reconfigure'):
+            stream.reconfigure(encoding='utf-8', errors='backslashreplace')
+
+
 def main(argv=None):
+    configure_output_encoding()
     args = parse(argv)
     try:
         if args.command == 'init':
