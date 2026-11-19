@@ -1,5 +1,14 @@
 # Architecture — control plane inside the repository
 
+## Open-source-first ownership (v0.2)
+
+- **OpenSpec** is the plan/spec authority (`openspec/specs` and `openspec/changes`); never copy tasks.md into a competing PAH planning store.
+- **PAH** is a thin execution/recovery and independent evidence layer; its `workflow` commands only observe upstream files or read-only CLI status.
+- **Agent Skills** offer opt-in vendor-neutral invocation; **mise** and **Serena** remain optional.
+- The repository remains fully usable with Python+Git even if OpenSpec Node CLI is absent, but spec authoring then requires installing OpenSpec.
+
+See `docs/open-source-stack.md` for ownership, setup and limitations.
+
 ## Separation of concerns
 
 ```
@@ -36,7 +45,7 @@ A single multi-writer shared document risks conflicts and drift. Divide knowledg
 
 Git contains textual state and small evidence. Git ignores local index and temporary files. A clean clone also needs platform dependencies, authentication, access to external systems, and possibly separately hosted large assets. All such needs must be declared and assessed, not silently inferred.
 
-## v1 technical scope
+## v0.2 technical scope
 
 - Pure Python 3.10+ standard library.
 - SQLite FTS5 lexical retrieval, optional route hints, no embeddings dependency.

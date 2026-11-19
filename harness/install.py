@@ -10,6 +10,7 @@ def project_files(template_root: Path):
     """Select runtime files, not demonstration tasks, tests, caches or Git history."""
     primary = ['AGENTS.md', 'CLAUDE.md', 'GEMINI.md', 'project.harness.json',
                'ai-docs/INDEX.md', 'ai-docs/product.md', 'ai-docs/architecture.md',
+               'openspec/config.yaml', 'mise.toml',
                '.harness/context-routes.json', '.harness/authority-map.json',
                '.github/copilot-instructions.md', '.cursor/rules/harness.mdc']
     for part in primary:
@@ -49,10 +50,12 @@ def install(template_root: Path, target: Path, name: str, *, dry_run=False):
     (target / 'ai-docs' / 'architecture.md').write_text(
         '# Project architecture\n\nInspect real project code and document known boundaries, risks and verification commands.\n',
         encoding='utf-8')
+    # OpenSpec owns requirements/change plans; do not auto-install or overwrite upstream skills.
     (target / '.harness' / 'tasks').mkdir(parents=True, exist_ok=True)
     (target / '.harness' / 'evidence').mkdir(parents=True, exist_ok=True)
     (target / '.harness' / '.gitignore').write_text('cache/\ntmp/\n*.lock\n', encoding='utf-8')
     return {'target': str(target), 'files_created': len(paths), 'next': [
         'Review project.harness.json and add real project test commands; task DONE is blocked without gates.',
         'Fill ai-docs/product.md and ai-docs/architecture.md with verified information.',
+        'Optional: install @fission-ai/openspec and run openspec init --tools claude,codex,gemini,hermes,agents after reviewing its generated files.',
         'Run doctor and lint. Commit to Git to transfer to a new computer.']}
