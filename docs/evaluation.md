@@ -9,6 +9,10 @@ Keep the same partially complete real Godot task, branch/commit, model and tool 
 - C: B + factual STATUS, one OpenSpec plan, relevant knowledge/ADR/handoff
 - D: C + topic pointers, selective native search and task-specific Skills
 
+## Instruction / Skill discovery smoke tests
+
+On actual installed versions of **Cursor, Codex, Claude Code, Grok Build and Antigravity**, create a fresh session in a trusted project checkout and verify *which exact path* loaded `AGENTS.md` or its import and whether the domain Skills can be discovered. Check that a single generic request triggers code inspection without having to say "read AGENTS.md." The template's Bash CI only checks structural imports and adapter files; it cannot execute these model sessions. Record version, observed discovery output and missing capabilities.
+
 ## Real scenarios (fresh sessions, no prior chat)
 1. **Baseline discovery:** agent inspects real code, test setup and relevant old decisions **before** designing a new feature; identifies what already exists rather than inventing a new implementation.
 2. **Useful clarification:** a technically answerable question should be resolved from code; an ambiguous product decision should produce a focused question rather than an unsupported guess.

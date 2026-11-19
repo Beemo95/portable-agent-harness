@@ -2,6 +2,10 @@
 
 Use Git and an agent with file access. This is a **template**; the actual Godot version, code and runtime/tests come from the real game repository. Python/SQLite are **not** required.
 
+## Confirm initial agent discovery once per tool/version
+
+In a trusted clone of the **actual** project, open a fresh session and ask the agent to report the project instruction and Skill file paths it loaded. For Claude Code run `/context all`; for Gemini CLI run `/memory show`; for Grok Build run `grok inspect`; for Antigravity inspect workspace Customizations. Do not treat a documentation CI pass as proof of runtime discovery. See [agent adapters](agent-adapters.md).
+
 ## New feature request
 1. Ask “implement this feature.” Agent reads [AGENTS.md](../AGENTS.md), inspects relevant code/scenes, tests, Git and previous topic-specific decisions. It should **not** immediately ask generic questions already answered by the project.
 2. Agent shares grounded understanding, clarifies only unresolved material user/product decisions, and proposes phase-by-phase acceptance/tests/rollback for nontrivial work.

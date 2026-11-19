@@ -27,4 +27,23 @@ cp "$root/.agent-docs/topics.md" "$tmp/repo/.agent-docs/topics.md"
 rm "$tmp/repo/.agent-docs/topics.md"
 if check; then echo 'FAIL: required topic index missing was not detected' >&2; exit 1; fi
 
-printf 'Documentation negative tests PASS (links, active change, topic map, required files)\n'
+# Regression: incorrect imports must fail, not silently load a shortened pointer.
+printf 'Read AGENTS.md\n' > "$tmp/repo/CLAUDE.md"
+if check; then echo 'FAIL: invalid Claude import was not detected' >&2; exit 1; fi
+cp "$root/CLAUDE.md" "$tmp/repo/CLAUDE.md"
+
+printf 'Read AGENTS.md\n' > "$tmp/repo/GEMINI.md"
+if check; then echo 'FAIL: invalid Gemini import was not detected' >&2; exit 1; fi
+cp "$root/GEMINI.md" "$tmp/repo/GEMINI.md"
+
+# Every canonical skill must have a discoverable Claude/Grok adapter.
+rm "$tmp/repo/.claude/skills/feature-work/SKILL.md"
+if check; then echo 'FAIL: missing adapter was not detected' >&2; exit 1; fi
+mkdir -p "$tmp/repo/.claude/skills/feature-work"
+cp "$root/.claude/skills/feature-work/SKILL.md" "$tmp/repo/.claude/skills/feature-work/SKILL.md"
+
+sed -i 's/^description: .*/description: intentionally stale trigger/' "$tmp/repo/.claude/skills/feature-work/SKILL.md"
+if check; then echo 'FAIL: stale adapter metadata was not detected' >&2; exit 1; fi
+cp "$root/.claude/skills/feature-work/SKILL.md" "$tmp/repo/.claude/skills/feature-work/SKILL.md"
+
+printf 'Documentation negative tests PASS (links, active change, topic map, imports, skill discovery)\n'

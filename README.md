@@ -22,6 +22,16 @@ A small **Markdown + Git + OpenSpec** profile for AI-assisted development. When 
 | Durable external research / meaningful handoff | [Research](.agent-docs/research/) / [worklogs](.agent-docs/worklog/) |
 | Code, regression and real QA evidence | Actual source/test files, command results, device/runtime artifacts |
 
+## Verified instruction locations (not verified agent execution)
+
+- Codex, Cursor, Antigravity: native root `AGENTS.md` plus shared `.agents/skills/`.
+- Claude Code: `CLAUDE.md` imports `@AGENTS.md`; the 12 portable `.claude/skills/` files point back to canonical `.agents/skills/`.
+- Grok Build: root `AGENTS.md` and Claude-compatible skill adapters; confirm via `grok inspect` in a trusted workspace.
+- Gemini CLI: `GEMINI.md` imports `@./AGENTS.md`.
+- The official OpenSpec CLI and its own `openspec-*` Skills are not installed by this template.
+
+See [agent-specific compatibility and verification](docs/agent-adapters.md). **Actual cross-agent instruction/skill loading remains to be exercised in each client.**
+
 ## Key documents
 [Phase lifecycle](docs/task-lifecycle.md) · [Knowledge distillation/retrieval](docs/knowledge-reuse.md) · [Selective context](docs/context-engineering.md) · [Official OpenSpec workflow](docs/openspec-workflow.md) · [Godot adoption](docs/godot-profile.md) · [Agent compatibility limits](docs/agent-adapters.md) · [Evaluation](docs/evaluation.md)
 

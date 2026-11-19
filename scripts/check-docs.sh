@@ -11,7 +11,8 @@ for f in AGENTS.md README.md .agent-docs/index.md .agent-docs/status.md \
   .agent-docs/topics.md .agent-docs/rules/workflow.md \
   .agent-docs/rules/specification.md .agent-docs/rules/development.md \
   .agent-docs/rules/documentation.md .agents/skills/context-recovery/SKILL.md \
-  docs/knowledge-reuse.md docs/task-lifecycle.md openspec/config.yaml; do
+  docs/knowledge-reuse.md docs/task-lifecycle.md docs/agent-adapters.md \
+  CLAUDE.md GEMINI.md openspec/config.yaml; do
   [[ -f "$f" ]] || fail "Missing required file: $f"
 done
 
@@ -19,6 +20,37 @@ done
 for f in harness/cli.py harness/index.py scripts/harness.py \
   .harness/context-routes.json .harness/authority-map.json project.harness.json; do
   [[ ! -e "$f" ]] || fail "Removed PAH engine file still exists: $f"
+done
+
+# Validate instruction imports: a prose instruction to read AGENTS.md is NOT an import.
+if [[ -f CLAUDE.md ]] && ! grep -Fxq '@AGENTS.md' CLAUDE.md; then
+  fail 'CLAUDE.md must contain the @AGENTS.md import for Claude Code'
+fi
+if [[ -f GEMINI.md ]] && ! grep -Fxq '@./AGENTS.md' GEMINI.md; then
+  fail 'GEMINI.md must contain the @./AGENTS.md import for Gemini CLI'
+fi
+
+# The .agents/skills files are canonical; .claude/skills are portability wrappers.
+# Check that every shared skill has exactly one discoverable Claude adapter and
+# that wrappers point to the correct source without stale trigger descriptions.
+for source in .agents/skills/*/SKILL.md; do
+  [[ -f "$source" ]] || continue
+  name="${source#.agents/skills/}"
+  name="${name%/SKILL.md}"
+  adapter=".claude/skills/$name/SKILL.md"
+  [[ -f "$adapter" ]] || { fail "Missing Claude/Grok adapter: $adapter"; continue; }
+  expected_desc="$(sed -n 's/^description: //p' "$source" | head -n 1)"
+  adapter_desc="$(sed -n 's/^description: //p' "$adapter" | head -n 1)"
+  grep -Fxq "name: $name" "$source" || fail "Canonical skill name mismatch: $source"
+  grep -Fxq "name: $name" "$adapter" || fail "Adapter skill name mismatch: $adapter"
+  [[ -n "$expected_desc" && "$expected_desc" == "$adapter_desc" ]] || fail "Skill description mismatch: $adapter"
+  grep -Fq "(../../../.agents/skills/$name/SKILL.md)" "$adapter" || fail "Adapter points to wrong source: $adapter"
+done
+for adapter in .claude/skills/*/SKILL.md; do
+  [[ -f "$adapter" ]] || continue
+  name="${adapter#.claude/skills/}"
+  name="${name%/SKILL.md}"
+  [[ -f ".agents/skills/$name/SKILL.md" ]] || fail "Orphan Claude adapter: $adapter"
 done
 
 # Common relative inline Markdown links, including the topic map's links.
