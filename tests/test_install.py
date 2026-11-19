@@ -18,6 +18,10 @@ class BootstrapTests(unittest.TestCase):
             cfg = load_config(target)
             self.assertEqual(cfg['project']['name'], 'Fresh project')
             self.assertEqual(cfg['verification']['gates'], [])
+            self.assertEqual(cfg['workflow']['provider'], 'openspec')
+            self.assertTrue((target / 'openspec' / 'config.yaml').is_file())
+            self.assertTrue((target / 'mise.toml').is_file())
+            self.assertTrue((target / '.agents' / 'skills' / 'openspec-pah-handoff' / 'SKILL.md').is_file())
             self.assertTrue(doctor(target)['ready'])
             self.assertTrue(lint(target)['ok'])
             with self.assertRaises(RuntimeError):

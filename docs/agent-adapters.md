@@ -1,4 +1,6 @@
-# Provider adapters and realistic compatibility
+# Provider adapters and realistic compatibility (v0.2)
+
+Official OpenSpec tool generators provide Agent Skills to supported tools including Claude, Codex, Gemini, Hermes and vendor-neutral `agents`. PAH does **not** reproduce vendor-specific skill templates. See `docs/open-source-stack.md`; run upstream `openspec init --tools claude,codex,gemini,hermes,agents` only after reviewing its changes and installation requirements.
 
 The robust contract is the CLI and repo state, not a particular bot runtime.
 

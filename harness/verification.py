@@ -49,7 +49,14 @@ def verify(root: Path, config: dict, task_id: str | None = None, selected: list[
             combined = p.stdout + '\n' + p.stderr
             match = re.search(r'Ran (\d+) tests? in', combined)
             record['test_count'] = int(match.group(1)) if match else None
+            # unittest includes skipped tests in 'Ran N tests'; a skip is not proof
+            # that required verification executed. Be conservative by default.
+            skip_match = re.search(r'OK\s*\([^)]*\bskipped=(\d+)\b[^)]*\)', combined)
+            record['skipped_count'] = int(skip_match.group(1)) if skip_match else 0
             record['status'] = 'pass' if p.returncode == 0 else 'fail'
+            if record['skipped_count'] > 0 and not gate.get('allow_skipped', False):
+                record['status'] = 'fail'
+                record['note'] = f'Gate reported {record["skipped_count"]} skipped tests; explicit allow_skipped required'
             min_tests = gate.get('min_tests')
             if min_tests is not None and (record['test_count'] is None or record['test_count'] < int(min_tests)):
                 record['status'] = 'fail'

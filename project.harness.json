@@ -2,7 +2,11 @@
   "environment": {
     "bootstrap_commands": [],
     "git_required": true,
-    "optional_tools": [],
+    "optional_tools": [
+      "openspec",
+      "rg",
+      "mise"
+    ],
     "python_min": "3.10",
     "required_tools": []
   },
@@ -64,5 +68,10 @@
         "timeout_seconds": 60
       }
     ]
+  },
+  "workflow": {
+    "provider": "openspec",
+    "required": false,
+    "authority": "openspec/specs and openspec/changes"
   }
 }

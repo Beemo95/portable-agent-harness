@@ -15,6 +15,7 @@ from .tasks import (create_task, list_tasks, load_task, transition, update_state
                     checkpoint, handoff, get_resume)
 from .verification import verify
 from .install import install
+from .openspec_bridge import list_changes, status as openspec_status, packet as openspec_packet
 
 
 def parse(argv=None):
@@ -32,6 +33,11 @@ def parse(argv=None):
     resume = sp.add_parser('resume'); resume.add_argument('task_id'); resume.add_argument('--budget', type=int)
     ver = sp.add_parser('verify'); ver.add_argument('task_id', nargs='?'); ver.add_argument('--gate', action='append')
     init = sp.add_parser('init'); init.add_argument('target', type=Path); init.add_argument('--name', required=True); init.add_argument('--dry-run', action='store_true')
+    workflow = sp.add_parser('workflow', help='read-only OpenSpec change projection')
+    wsp = workflow.add_subparsers(dest='workflow_command', required=True)
+    wsp.add_parser('list')
+    wstatus = wsp.add_parser('status'); wstatus.add_argument('change')
+    wcontext = wsp.add_parser('context'); wcontext.add_argument('change')
     tasks = sp.add_parser('task'); tsp = tasks.add_subparsers(dest='task_command', required=True)
     tsp.add_parser('list')
     new = tsp.add_parser('new'); new.add_argument('task_id'); new.add_argument('--title', required=True); new.add_argument('--goal', required=True); new.add_argument('--accept', action='append', required=True); new.add_argument('--gate', action='append', default=[])
@@ -102,6 +108,10 @@ def execute(args, root: Path):
         return {'project': cfg['project']['name'], 'git_head': git_head(root),
                 'git_status': git_changes(root), 'tasks': list_tasks(root)}
     if args.command == 'bootstrap': return bootstrap(root, cfg, args.apply)
+    if args.command == 'workflow':
+        if args.workflow_command == 'list': return list_changes(root)
+        if args.workflow_command == 'status': return openspec_status(root, args.change)
+        if args.workflow_command == 'context': return openspec_packet(root, args.change)
     if args.command == 'index': return build_index(root, cfg, rebuild=args.rebuild)
     if args.command == 'search': return {'query': args.query, 'results': search(root, cfg, args.query, args.limit)}
     if args.command == 'context': return build_packet(root, cfg, args.query, args.task, args.budget)

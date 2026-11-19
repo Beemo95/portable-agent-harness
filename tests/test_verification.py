@@ -54,6 +54,15 @@ class VerificationTests(unittest.TestCase):
         self.assertFalse(result['all_passed'])
         self.assertEqual(result['results'][0]['test_count'], 0)
 
+    def test_skipped_unittest_is_not_a_pass(self):
+        (self.tests / 'test_app.py').write_text(
+            'import unittest\nclass AppTests(unittest.TestCase):\n'
+            ' @unittest.skip("not run")\n def test_skipped(self): pass\n', encoding='utf-8')
+        result = verify(self.root, self.cfg, 'T-001')
+        self.assertFalse(result['all_passed'])
+        self.assertEqual(result['results'][0]['skipped_count'], 1)
+        self.assertEqual(result['results'][0]['status'], 'fail')
+
     def test_failure_has_actual_evidence(self):
         (self.tests / 'test_app.py').write_text('import unittest\nclass AppTests(unittest.TestCase):\n def test_bad(self): self.assertEqual(1, 2)\n', encoding='utf-8')
         result = verify(self.root, self.cfg, 'T-001')

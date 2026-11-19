@@ -11,3 +11,8 @@ Only open the material relevant to the current task.
 - `../docs/security.md`: trust boundaries, secrets, execution safety.
 
 **Source-of-truth:** explicit user-approved requirements govern intended behavior; code and actual tests describe current behavior; conflicts require reconciliation, not silent overwrite.
+
+## Open-source integration
+
+- [OpenSpec planning authority and optional OSS stack](../docs/open-source-stack.md)
+- OpenSpec specs and pending change plans: `../openspec/`

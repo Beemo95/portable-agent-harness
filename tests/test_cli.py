@@ -19,6 +19,11 @@ class CliTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertTrue(json.loads(result.stdout)['ok'])
 
+    def test_workflow_list_without_optional_upstream_cli(self):
+        result = self.call('workflow', 'list')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)['provider'], 'openspec')
+
     def test_context_outputs_current_source(self):
         result = self.call('context', 'verification checkpoint')
         self.assertEqual(result.returncode, 0, result.stderr)
