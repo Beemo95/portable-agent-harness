@@ -69,12 +69,27 @@ while IFS= read -r file; do
   done < <(grep -oE '\]\([^)]*\)' "$file" || true)
 done < <(find . \( -name .git -o -name .godot -o -name node_modules -o -name .venv \) -prune -o -type f -name '*.md' -print)
 
-# OpenSpec config must be parsable by its declared schema rather than silently ignored.
+# These are structural checks, not full YAML parsing or OpenSpec CLI validation.
 if [[ -f openspec/config.yaml ]]; then
   [[ "$(grep -c '^schema:' openspec/config.yaml || true)" -eq 1 ]] || fail 'OpenSpec config needs exactly one schema field'
   grep -Fxq 'schema: spec-driven' openspec/config.yaml || fail 'OpenSpec schema must be spec-driven'
   grep -Eq '^context: *\|' openspec/config.yaml || fail 'OpenSpec config missing context block'
-  grep -Eq '^rules: *
+  grep -Eq '^rules: *$' openspec/config.yaml || fail 'OpenSpec config missing rules mapping'
+fi
+
+# Scheduled review deadline: cannot infer content accuracy from HTTP or age alone.
+if [[ -f docs/source-audit.md ]]; then
+  due="$(sed -n 's/^- \*\*Next review by:\*\* //p' docs/source-audit.md | head -n 1)"
+  reviewed="$(sed -n 's/^- \*\*Reviewed on:\*\* //p' docs/source-audit.md | head -n 1)"
+  today="$(date -u +%Y-%m-%d)"
+  [[ "$reviewed" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || fail "Missing valid review date: $reviewed"
+  [[ "$due" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || fail "Missing valid due date: $due"
+  if [[ "$due" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ && "$today" > "$due" ]]; then
+    fail "External sources overdue for manual re-review ($due)"
+  fi
+fi
+
+status='.agent-docs/status.md'
 if [[ -f "$status" ]]; then
   for field in 'Active OpenSpec changes' 'Next action' 'Last updated' 'Verification'; do
     grep -Fq -- "**$field:**" "$status" || fail "STATUS missing: $field"
@@ -88,61 +103,19 @@ if [[ -f "$status" ]]; then
       ref="${ref//\`/}"
       ref="${ref//[[:space:]]/}"
       if [[ ! "$ref" =~ ^openspec/changes/[a-zA-Z0-9._-]+/?$ || "$ref" == 'openspec/changes/archive/' || "$ref" == 'openspec/changes/archive' ]]; then
-        fail "Malformed/archived active OpenSpec reference: $ref"
+        fail "Malformed/archived active change reference: $ref"
         continue
       fi
       [[ -d "$ref" ]] || { fail "Active OpenSpec directory missing: $ref"; continue; }
-      [[ -f "$ref/proposal.md" || -f "$ref/tasks.md" ]] || fail "Active OpenSpec change contains no proposal.md or tasks.md: $ref"
+      [[ -f "$ref/proposal.md" || -f "$ref/tasks.md" ]] || fail "Active change lacks proposal.md and tasks.md: $ref"
     done
   fi
   if [[ -f project.godot ]]; then
-    grep -Fq 'TEMPLATE STATE' "$status" && fail 'Actual project.godot exists but STATUS still claims TEMPLATE STATE'
-    grep -Fq 'not inspected; no game included' "$status" && fail 'Actual game has uninitialized engine status'
-    grep -Fq 'not initialized for a game' "$status" && fail 'Actual game has uninitialized date'
+    grep -Fq 'TEMPLATE STATE' "$status" && fail 'Godot project exists but STATUS still claims TEMPLATE STATE'
+    grep -Fq 'not inspected; no game included' "$status" && fail 'Actual project engine status not initialized'
+    grep -Fq 'not initialized for a game' "$status" && fail 'Actual project date not initialized'
   fi
   if [[ -f project.godot ]] || ! grep -Fq 'TEMPLATE STATE' "$status"; then
-    grep -Eq '^- \*\*Last updated:\*\* [0-9]{4}-[0-9]{2}-[0-9]{2}' "$status" || fail 'Project STATUS needs dated Last updated'
-    grep -Eq '^- \*\*Next action:\*\* .+' "$status" || fail 'Project STATUS needs concrete Next action'
-  fi
-fi
-if [[ -s "$errors" ]]; then
-  printf 'Documentation check FAILED: %s issue(s)\n' "$(wc -l < "$errors" | tr -d ' ')" >&2
-  exit 1
-fi
-printf 'Documentation check PASS (required files, local links, STATUS pointers)\n'
- openspec/config.yaml || fail 'OpenSpec config missing rules mapping'
-fi
-
-# Review metadata signals a stale source claim, not that content is necessarily current.
-if [[ -f docs/source-audit.md ]]; then
-  due="$(sed -n 's/^- \*\*Next review by:\*\* //p' docs/source-audit.md | head -n 1)"
-  reviewed="$(sed -n 's/^- \*\*Reviewed on:\*\* //p' docs/source-audit.md | head -n 1)"
-  today="$(date -u +%Y-%m-%d)"
-  [[ "$reviewed" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || fail "Missing valid source review date: $reviewed"
-  [[ "$due" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || fail "Missing valid source due date: $due"
-  if [[ "$due" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ && "$today" > "$due" ]]; then
-    fail "External source review overdue ($due); reverify official sources before extending it"
-  fi
-fi
-
-status='.agent-docs/status.md'
-if [[ -f "$status" ]]; then
-  for field in 'Active OpenSpec changes' 'Next action' 'Last updated' 'Verification'; do
-    grep -Fq -- "**$field:**" "$status" || fail "STATUS missing: $field"
-  done
-  active="$(sed -n 's/^- \*\*Active OpenSpec changes:\*\* //p' "$status" | head -n 1)"
-  if [[ -z "$active" ]]; then
-    fail 'STATUS active changes must be none or exact OpenSpec paths'
-  elif [[ "$active" != 'none' ]]; then
-    refs="$(printf '%s\n' "$active" | grep -oE 'openspec/changes/[A-Za-z0-9._-]+/?' || true)"
-    [[ -n "$refs" ]] || fail "Missing concrete OpenSpec reference: $active"
-    if [[ -n "$refs" ]]; then
-      while IFS= read -r ref; do
-        [[ -d "$ref" ]] || fail "STATUS points to missing change: $ref"
-      done <<< "$refs"
-    fi
-  fi
-  if ! grep -Fq 'TEMPLATE STATE' "$status"; then
     grep -Eq '^- \*\*Last updated:\*\* [0-9]{4}-[0-9]{2}-[0-9]{2}' "$status" || fail 'Project STATUS needs dated Last updated'
     grep -Eq '^- \*\*Next action:\*\* .+' "$status" || fail 'Project STATUS needs concrete Next action'
   fi
