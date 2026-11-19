@@ -1,14 +1,14 @@
-# Minimum viable stack
+# Minimal project stack (not a new agent runtime)
 
-| Concern | Authority | Optional helper |
+| Responsibility | Canonical authority | Optional helper |
 | --- | --- | --- |
-| Source and history | Git + real project files | Native Git/search tools |
-| Current work | `.agent-docs/status.md` | Agent's built-in file reader |
-| Requirements and tasks | `openspec/specs/` + `openspec/changes/` | Official [OpenSpec](https://github.com/Fission-AI/OpenSpec) CLI |
-| Decisions/evidence/handoff | `.agent-docs/decisions/`, `research/`, `worklog/` | [Agent Skills](https://agentskills.io/specification) |
-| Testing | Actual game/toolchain/CI/device | Godot, existing test runner |
-| Instructions | `AGENTS.md` | Host-specific pointer files |
+| Current behavior/history | Actual code and Git | Native repository search |
+| Short current status/next action | `.agent-docs/status.md` | Context recovery Skill |
+| Approved requirements and tasks | `openspec/specs/`, `openspec/changes/` | Official [OpenSpec](https://github.com/Fission-AI/OpenSpec) CLI and generated Skills |
+| Decisions/research/handoff | `.agent-docs/decisions/`, `research/`, `worklog/` | Optional task-specific Skills |
+| Actual correctness | Project tests, real Godot runtime/device QA | Existing test runner and game CI |
+| Document structural integrity | Markdown/Git | `bash scripts/check-docs.sh` in this template |
 
-Default architecture requires **no Python, SQLite, external database, homemade context engine, or MCP server**. Optional OpenSpec authoring CLI should follow its own current documentation; review any generated skill/config changes to avoid overwrites. Spec Kit is an alternative, not a second task tracker. Add Serena/ripgrep/semantic search only if real recall failures justify it.
+Python CLI, SQLite FTS, separate task DB, bespoke context packet engine and mandatory SaaS APIs are absent. There is **no claim** that every host auto-discovers the same Skills. [OpenSpec setup](openspec-workflow.md) is optional; its current upstream profiles and generated tools should be checked before installing. Spec Kit is an alternative rather than a second tracker.
 
-This is a template, not a measured best-performing agent harness.
+Add more tooling only after measuring actual cold-start/QA failure against [evaluation](evaluation.md).

@@ -1,9 +1,15 @@
-# Adoption without overriding existing work
+# Safe adoption in a real Godot project
 
-There is **no installer**. Make a branch, inspect the existing game's AGENTS/agent configs, specs, tests and source. Copy/merge only useful documentation: `AGENTS.md`, `.agent-docs/`, `.agents/skills/`, optional provider pointers and `openspec/`. Do **not** overwrite approved rules or existing tests.
+This repository is **only a documentation template**. Do not overwrite an established game's source/tests or pretend the template's STATUS describes that game.
 
-Replace template placeholders in `product.md`, `architecture.md` and `status.md` with **observed facts**: Godot version/renderer/platform, core scenes, current work, acceptance, evidence, blockers and next action. Keep one canonical OpenSpec tasks checklist; link existing issues/PRs if present.
+1. Create a review branch. Inspect the game's current `AGENTS.md`, Skills, tool-specific adapters, actual source/`project.godot`, Git and existing tests.
+2. Merge only relevant files from this profile: `AGENTS.md` guidance, `.agent-docs/`, `.agents/skills/`, optional host adapters and `openspec/`. Reconcile conflicts manually, preserving existing decisions and scene/test baselines.
+3. Fill product intent, observed architecture/version/platform, known test commands and **real** work state. Remove `TEMPLATE STATE` and date STATUS's `Last updated`; use `Active OpenSpec changes: none` or exact existing `openspec/changes/<slug>/` path(s).
+4. Keep **one** implementation checklist under the change's `tasks.md` and link real issues/PRs, decisions, worklogs and evidence. Record actual PASS/FAIL/NOT RUN separately.
+5. Optionally copy `scripts/check-docs.sh`, `tests/docs-lint.sh` and the CI workflow, reviewing their assumptions for that project. They should **not** block a normal `tests/` or `scripts/` directory. Run the project's actual Godot tests independently.
+6. If desired, set up the **official OpenSpec Skills** via its own CLI after reviewing generated changes; see [OpenSpec workflow](openspec-workflow.md).
+7. Commit/push non-secret source and context, then run [cold-start evaluation](evaluation.md) in a new session/clone. Report actual outcome and unresolved missing state.
 
-Test the baseline in the real project and a cold new-session/clean-clone recovery before relying on handoffs. Commit/push non-secret context/source. If migrating an old PAH installation, inspect dependencies before removing its scripts or `.harness/` files.
+Older non-main branches of this template may contain the deprecated Python architecture. Inspect branch differences before copying files; don't silently rewrite or delete branches.
 
-Godot headless checks alone don't prove scenes visually correct.
+This process preserves existing project knowledge. It does not automatically install a Godot engine, configure OAuth, create a game or recover unpushed work.

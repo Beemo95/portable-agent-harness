@@ -1,7 +1,7 @@
-# Verification — only real project checks count
+# Verification — evidence over reported status
 
-This template has **no executable harness verification engine or bundled Python tests**. Run the adopted project's actual build, unit/integration, Godot import/runtime, GUI/device or release checks as applicable.
+This template's Bash documentation CI detects broken common Markdown links and missing OpenSpec STATUS targets. **It does not run or validate a game**, and its negative tests do not substitute for application regression coverage.
 
-For each meaningful check capture: exact command/procedure, installed tool version and environment, source commit + dirty state, result **PASS / FAIL / NOT RUN**, log/screenshot path if created, covered acceptance criteria and remaining gaps. Record concise evidence in the linked OpenSpec change or worklog and point STATUS to it.
+In a real Godot game run relevant, approved source/build/unit tests, the actual editor/runtime, and visual/touch/device/export checks as needed. Record exact commands/procedure, revision and dirty state, Godot version/device/environment, observed PASS / FAIL / NOT RUN and actual log/screenshot evidence locations. Missing tools, stale evidence or unchecked acceptance must be labeled NOT RUN.
 
-A headless Godot parse/import run is not visual, animation, touch, device, performance or store-release QA. A checked task, generated report or unexecuted command is not proof. See [Godot QA](../.agent-docs/rules/verification.md).
+A successful Godot `--headless --editor` import does not prove animation appearance, collisions, touch, Android behavior or release readiness. Checklists indicate reported implementation; independent QA must inspect actual outcomes. [Godot verification rule](../.agent-docs/rules/verification.md) · [cold-start evaluation](evaluation.md).

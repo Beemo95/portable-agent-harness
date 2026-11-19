@@ -1,18 +1,18 @@
-# Godot knowledge map — read selectively
+# Godot project knowledge map (load selectively)
 
-Start with [AGENTS.md](../AGENTS.md), and [STATUS](status.md) for resume requests. **Do not preload all these files**.
+Start at [AGENTS.md](../AGENTS.md). For a resume request read [STATUS](status.md) and its **actual** active OpenSpec change first, then Git/source. Don't preload this entire index.
 
 | Work | Rule |
 | --- | --- |
 | Every task | [workflow](rules/workflow.md) |
-| Feature / mechanics | [specification](rules/specification.md) |
-| Godot code | [development](rules/development.md) |
-| Art, sprites, UI | [design-art](rules/design-art.md) |
-| Research | [research](rules/research.md) |
-| Bugs | [debugging](rules/debugging.md) |
-| QA | [verification](rules/verification.md) |
-| Pause/handoff | [documentation](rules/documentation.md) |
+| Feature/game mechanic | [specification](rules/specification.md) |
+| Godot source/scenes | [development](rules/development.md) |
+| Art/sprites/UI | [design-art](rules/design-art.md) |
+| Research/OSS | [research](rules/research.md) |
+| Debugging | [debugging](rules/debugging.md) |
+| QA/real game | [verification](rules/verification.md) |
+| Checkpoints and handoff | [documentation](rules/documentation.md) |
 
-Current work: [STATUS](status.md); intent: [product](product.md); code map: [architecture](architecture.md); [decisions](decisions/), [research](research/), [worklog](worklog/), [handoff template](templates/handoff.md). Canonical [OpenSpec changes](../openspec/changes/) and [approved specs](../openspec/specs/) carry plans and requirements. Optional [roles](agents/index.md) and [Skills](../.agents/skills/) are invoked only when relevant.
+[Project status](status.md) · [product](product.md) · [architecture](architecture.md) · [decisions](decisions/) · [research](research/) · [worklog](worklog/) · [handoff template](templates/handoff.md) · [OpenSpec changes](../openspec/changes/) / [approved specs](../openspec/specs/) · [optional specialists](agents/index.md) · [optional Skills](../.agents/skills/).
 
-If documentation conflicts with the source/runtime, **report and reconcile**, never invent a successful result.
+[Official OpenSpec workflow](../docs/openspec-workflow.md) · [recovery evaluation](../docs/evaluation.md). If claimed completion conflicts with source or logs, report the discrepancy rather than silently rewriting history.

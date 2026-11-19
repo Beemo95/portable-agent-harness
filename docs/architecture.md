@@ -1,23 +1,19 @@
-# Architecture — repository-native documentation
+# Git-native documentation harness
 
 ```text
-User → AI agent → AGENTS.md → STATUS → linked OpenSpec/ADR/handoff
-                                           ↓
-                             actual Git + source + selected rules
-                                           ↓
-                            real project tests and honest evidence
-                                           ↓
-                               update Markdown, commit/push
-                                           ↓
-                               next session / machine / model
+New agent -> AGENTS.md -> short STATUS -> exact active OpenSpec change
+                                      \-> relevant rules/Skills/ADRs/handoff
+                                      \-> actual Git/source and QA evidence
+                 execute project tests -> checkpoint Markdown + commit/push
+                                      -> next session/model/PC
 ```
 
-- **Git and real source:** what exists and changed; actual tests show observed behavior.
-- **OpenSpec:** approved specs, feature proposals/design, **one** implementation checklist.
-- **STATUS:** brief index to active work, verified facts, blockers and next concrete action. Reconcile against Git.
-- **Decisions/research/worklogs:** preserve rationale, evidence and historical transitions.
-- **Skills/role adapters:** optional. No promise of automatic cross-provider discovery.
+- **Code, Git and observed runtime** define what currently exists; spec/accepted decisions define intended behavior.
+- **OpenSpec changes** own one implementation checklist (`tasks.md`); approved specs live in `openspec/specs/`. The official CLI/Skills are optional and not bundled.
+- **STATUS** is a one-screen pointer to active work, tested/untested facts, blockers and next action, not the source of task history.
+- **ADRs, research, worklogs and targeted handoffs** preserve durable rationale, with meaningful milestone checkpoints.
+- **Bash CI** checks required docs, common local Markdown links and STATUS→change paths; it cannot test games or semantic truth.
 
-No Python package, SQLite FTS5 index, `.harness/` task store, separate context packet system, custom verifier or bootstrap executor. Use agent-native file/Git lookup. Adding extra search tools is a measured future choice, not part of the default.
+No Python/SQLite/task DB/context-packet engine. **`scripts/` and `tests/` are explicitly allowed** because real games need them. Git clones transfer only pushed non-secret state; actual cross-agent continuity remains to be tested.
 
-Git carries **committed non-secret files**, not hidden reasoning, uncommitted edits, external access or device state.
+[Official OpenSpec workflows](openspec-workflow.md) · [evaluation](evaluation.md).
