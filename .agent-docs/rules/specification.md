@@ -1,12 +1,12 @@
-# Game specification and feature planning
+# Game specification and phase planning
 
-Use for new mechanics, balancing, UI flows, persistent data changes and scope decisions. Prefer official OpenSpec files rather than a second requirements tracker.
+Use for meaningful changes to gameplay, UI flow, save data, balancing or cross-module behavior. For trivial bugs, keep the plan short.
 
-1. Read `.agent-docs/product.md`, current relevant specs in `openspec/specs/`, and affected scene scripts; state player problem and target platform.
-2. Describe the player-visible behavior, inputs, transitions, fail/edge cases, restart/save semantics, accessibility where relevant and performance constraints.
-3. Define acceptance scenarios with observable outcomes, not only implementation steps. Include mobile touch/rotation/aspect ratio if applicable.
-4. For significant changes, keep proposal/design/tasks under `openspec/changes/<slug>/`; use actual upstream CLI when available and record when unavailable.
-5. Mark decisions requiring user approval (creative direction, monetization, non-reversible content) instead of silently choosing.
-6. After implementation, update the approved specs per the project's OpenSpec workflow; checked tasks are not proof of QA.
+1. **Code-first:** read relevant `project.godot`, source scenes/scripts, signals/interfaces, tests, product intent, approved specs and past related decisions. Search [topic map](../topics.md) and current code, not just STATUS.
+2. Classify unknowns: inspect/research what is answerable; make explicit reversible low-risk assumptions; ask focused questions **only** for user-controlled product choices, conflicting acceptance or blocking/irreversible decisions. Provide alternatives and consequences instead of open-ended questionnaires.
+3. Define player-visible behavior, inputs/transitions, failures, restart/save semantics, compatibility, accessibility/platform (including touch/aspect ratio if applicable), and non-goals. Define measurable acceptance scenarios rather than vague implementation tasks.
+4. For substantial work, write proposal/design and **ordered, bounded phases** in the canonical `openspec/changes/<slug>/tasks.md`. Each phase names code area, acceptance, test method/expected result, dependencies, rollback and approvals if needed. The official OpenSpec CLI/Skills may author these files; no second planning store.
+5. Verify baseline and identify risks *before* large edits. When scope/UX/product choice is materially ambiguous, obtain a decision before implementing it; do not demand an approval ceremony for routine reversible fixes.
+6. After each phase, reconcile implementation and actual evidence before moving on. At closure, update approved specs following the actual OpenSpec workflow and distill reusable architecture/rationale with evidence and [topic pointers](../topics.md).
 
-**Spec minimum:** goal; player flow; non-goals; acceptance criteria; compatibility/saves; risks; affected scenes; validation approach. Small defect fixes do not require an elaborate proposal.
+**Minimum substantial plan:** what/why, relevant existing code, accepted behavior, out of scope, phases and dependencies, acceptance/tests/required QA per phase, risks/rollback, unresolved decisions and next action. Checked boxes are not proof of tests.
